@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>WorkForce - Laporan Kehadiran</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#2563EB",
+            "primary-600": "#1D4ED8",
+            "primary-700": "#1E40AF",
+            "primary-900": "#1E3A8A",
+            accent: "#0EA5E9",
+            ink: "#0F172A",
+            "ink-secondary": "#334155",
+            "ink-tertiary": "#64748B",
+            "ink-muted": "#94A3B8",
+            border: "#E2E8F0",
+            canvas: "#F8FAFC",
+            success: "#059669",
+            "success-soft": "#ECFDF5",
+            warning: "#D97706",
+            "warning-soft": "#FFFBEB",
+            danger: "#DC2626",
+            "danger-soft": "#FEF2F2"
+          },
+          boxShadow: {
+            soft: "0 12px 32px rgba(15, 23, 42, 0.08)",
+            lift: "0 18px 46px rgba(37, 99, 235, 0.18)",
+            card: "0 4px 20px rgba(15, 23, 42, 0.06)"
+          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', "sans-serif"] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: "Plus Jakarta Sans", sans-serif; }
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24; }
+    .material-symbols-filled { font-family: "Material Symbols Outlined", sans-serif; font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 24; }
+    .safe-bottom { padding-bottom: max(180px, calc(160px + env(safe-area-inset-bottom))); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+    .delay-700 { animation-delay: 0.7s; }
+    .delay-800 { animation-delay: 0.8s; }
+
+    @keyframes count-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .count-up {
+      animation: count-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+
+    @keyframes bar-grow {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+    .bar-grow {
+      animation: bar-grow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: bottom;
+    }
+
+    .glass-header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .gradient-hero {
+      background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 50%, #1E40AF 100%);
+    }
+
+    .gradient-bar {
+      background: linear-gradient(180deg, #60A5FA 0%, #2563EB 100%);
+    }
+
+    .hover-lift {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    .chart-bar {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .chart-bar:hover {
+      filter: brightness(1.15);
+      transform: scaleY(1.04);
+    }
+
+    .tab-pill {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-pill:hover:not(.tab-active) {
+      background-color: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+    .tab-active {
+      background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+
+    .row-hover {
+      transition: background-color 0.2s ease;
+    }
+    .row-hover:hover {
+      background-color: #F8FAFC;
+    }
+
+    .status-badge {
+      transition: transform 0.2s ease;
+    }
+    .row-hover:hover .status-badge {
+      transform: scale(1.05);
+    }
+
+    .icon-circle {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .stat-card:hover .icon-circle {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+    }
+
+    .load-more-btn {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .load-more-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.15);
+      border-color: #2563EB;
+    }
+
+    .dropdown-menu {
+      transform-origin: top right;
+      animation: dropdown-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes dropdown-in {
+      from { opacity: 0; transform: scale(0.95) translateY(-4px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    details > summary::-webkit-details-marker,
+    details > summary::marker {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-ink antialiased">
+  <!-- Glassmorphism Sticky Header -->
+  <header class="glass-header sticky top-0 z-40 border-b border-border/70">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <a href="dashboard_kimi.html" class="flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-600 text-white shadow-lift">
+          <span class="material-symbols-outlined material-symbols-filled">work_history</span>
+        </div>
+        <div>
+          <p class="text-lg font-bold leading-5 text-primary">WorkForce</p>
+          <p class="text-xs font-semibold text-ink-muted">Laporan Kehadiran</p>
+        </div>
+      </a>
+      <details class="relative">
+        <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-border bg-white text-ink-tertiary transition hover:border-primary hover:text-primary hover:shadow-md" aria-label="Buka menu akun">
+          <span class="material-symbols-outlined text-[21px]">account_circle</span>
+        </summary>
+        <div class="dropdown-menu absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
+          <a class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-ink transition hover:bg-canvas" href="report_kimi.html">
+            <span class="material-symbols-outlined text-[20px] text-ink-muted">download</span>
+            Ekspor Laporan
+          </a>
+          <a class="flex items-center gap-3 border-t border-border px-4 py-3 text-sm font-bold text-ink transition hover:bg-canvas" href="profile_kimi.html">
+            <span class="material-symbols-outlined text-[20px] text-ink-muted">person</span>
+            Profil
+          </a>
+          <a class="flex items-center gap-3 border-t border-border px-4 py-3 text-sm font-bold text-danger transition hover:bg-danger-soft" href="login_kimi.html">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            Logout
+          </a>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <main class="safe-bottom mx-auto max-w-6xl px-4 py-6 sm:px-6">
+    <!-- Hero + Trend Chart -->
+    <section class="grid gap-5 lg:grid-cols-[1fr_0.9fr]">
+      <!-- Hero Stats Card -->
+      <div class="animate-fade-up gradient-hero rounded-2xl p-6 text-white shadow-lift sm:p-7 relative overflow-hidden">
+        <!-- Decorative circles -->
+        <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/8 blur-2xl"></div>
+        <div class="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-accent/20 blur-2xl"></div>
+
+        <div class="relative flex items-start justify-between gap-4">
+          <div>
+            <p class="text-sm font-semibold text-white/70">Bulan Mei 2026</p>
+            <h1 class="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">Laporan Kehadiran</h1>
+            <p class="mt-2 max-w-xl text-sm leading-6 text-white/70">Pantau total jam kerja, ketepatan waktu, dan riwayat absensi dalam satu tampilan.</p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold ring-1 ring-white/20 backdrop-blur-sm">
+            <span class="material-symbols-outlined material-symbols-filled text-[14px]">trending_up</span>
+            92% Konsisten
+          </span>
+        </div>
+
+        <div class="relative mt-7 grid grid-cols-3 gap-3">
+          <div class="rounded-xl bg-white/12 p-4 ring-1 ring-white/15 backdrop-blur-sm">
+            <div class="flex items-center gap-1.5 text-white/60">
+              <span class="material-symbols-outlined text-[16px]">schedule</span>
+              <p class="text-xs font-bold uppercase tracking-wide">Total Jam</p>
+            </div>
+            <p class="mt-2 text-2xl font-extrabold count-up delay-200">164<span class="text-lg font-bold text-white/60">j</span></p>
+            <p class="mt-1 text-xs text-white/60">Bulan ini</p>
+          </div>
+          <div class="rounded-xl bg-white/12 p-4 ring-1 ring-white/15 backdrop-blur-sm">
+            <div class="flex items-center gap-1.5 text-white/60">
+              <span class="material-symbols-outlined text-[16px]">avg_time</span>
+              <p class="text-xs font-bold uppercase tracking-wide">Rata-rata</p>
+            </div>
+            <p class="mt-2 text-2xl font-extrabold count-up delay-300">8.2<span class="text-lg font-bold text-white/60">j</span></p>
+            <p class="mt-1 text-xs text-white/60">Per hari</p>
+          </div>
+          <div class="rounded-xl bg-white/12 p-4 ring-1 ring-white/15 backdrop-blur-sm">
+            <div class="flex items-center gap-1.5 text-white/60">
+              <span class="material-symbols-outlined text-[16px]">warning</span>
+              <p class="text-xs font-bold uppercase tracking-wide">Terlambat</p>
+            </div>
+            <p class="mt-2 text-2xl font-extrabold count-up delay-400">2<span class="text-lg font-bold text-white/60">x</span></p>
+            <p class="mt-1 text-xs text-white/60">Dari 20 hari</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trend Chart -->
+      <div class="animate-fade-up delay-100 rounded-2xl border border-border bg-white p-6 shadow-card sm:p-7">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg font-extrabold text-ink">Tren Jam Kerja</h2>
+            <p class="mt-0.5 text-sm text-ink-muted">14 hari terakhir</p>
+          </div>
+          <span class="inline-flex items-center gap-1 rounded-full bg-success-soft px-3 py-1 text-xs font-bold text-success">
+            <span class="material-symbols-outlined material-symbols-filled text-[14px]">check_circle</span>
+            On Track
+          </span>
+        </div>
+
+        <!-- Chart -->
+        <div class="mt-6 relative">
+          <!-- Grid lines -->
+          <div class="absolute inset-x-0 top-0 flex flex-col justify-between h-40 pointer-events-none">
+            <div class="border-t border-dashed border-border/60"></div>
+            <div class="border-t border-dashed border-border/60"></div>
+            <div class="border-t border-dashed border-border/60"></div>
+            <div class="border-t border-dashed border-border/60"></div>
+            <div class="border-t border-border/80"></div>
+          </div>
+
+          <div class="relative flex h-40 items-end gap-[6px] sm:gap-2 px-1 pb-0">
+            <div class="chart-bar bar-grow delay-100 h-[72%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.1s"></div>
+            <div class="chart-bar bar-grow delay-200 h-[82%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.15s"></div>
+            <div class="chart-bar bar-grow delay-300 h-[78%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.2s"></div>
+            <div class="chart-bar bar-grow delay-400 h-[65%] flex-1 rounded-t-lg bg-gradient-to-t from-warning to-warning/40" style="animation-delay: 0.25s"></div>
+            <div class="chart-bar bar-grow delay-500 h-[84%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.3s"></div>
+            <div class="chart-bar bar-grow delay-600 h-[18%] flex-1 rounded-t-lg bg-gradient-to-t from-ink-muted to-ink-muted/30" style="animation-delay: 0.35s"></div>
+            <div class="chart-bar bar-grow delay-700 h-[18%] flex-1 rounded-t-lg bg-gradient-to-t from-ink-muted to-ink-muted/30" style="animation-delay: 0.4s"></div>
+            <div class="chart-bar bar-grow delay-800 h-[80%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.45s"></div>
+            <div class="chart-bar bar-grow delay-900 h-[42%] flex-1 rounded-t-lg bg-gradient-to-t from-danger to-danger/40" style="animation-delay: 0.5s"></div>
+            <div class="chart-bar bar-grow delay-1000 h-[88%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.55s"></div>
+            <div class="chart-bar bar-grow h-[86%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.6s"></div>
+            <div class="chart-bar bar-grow h-[76%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.65s"></div>
+            <div class="chart-bar bar-grow h-[70%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.7s"></div>
+            <div class="chart-bar bar-grow h-[82%] flex-1 rounded-t-lg bg-gradient-to-t from-primary to-primary/40" style="animation-delay: 0.75s"></div>
+          </div>
+        </div>
+
+        <div class="mt-3 flex justify-between text-xs font-semibold text-ink-muted">
+          <span>1 Mei</span>
+          <span>14 Mei</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary Cards -->
+    <section class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- Hadir -->
+      <div class="animate-fade-up delay-200 stat-card hover-lift rounded-2xl border border-border bg-white p-5 shadow-card relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-success rounded-t-2xl"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-sm font-semibold text-ink-tertiary">Hadir</span>
+            <p class="mt-3 text-3xl font-extrabold text-ink">18</p>
+            <p class="mt-1 text-xs font-medium text-ink-muted">dari 20 hari kerja</p>
+          </div>
+          <div class="icon-circle flex h-12 w-12 items-center justify-center rounded-xl bg-success-soft text-success">
+            <span class="material-symbols-outlined material-symbols-filled text-[24px]">check_circle</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tepat Waktu -->
+      <div class="animate-fade-up delay-300 stat-card hover-lift rounded-2xl border border-border bg-white p-5 shadow-card relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-primary rounded-t-2xl"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-sm font-semibold text-ink-tertiary">Tepat Waktu</span>
+            <p class="mt-3 text-3xl font-extrabold text-ink">16</p>
+            <p class="mt-1 text-xs font-medium text-ink-muted">89% tingkat ketepatan</p>
+          </div>
+          <div class="icon-circle flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <span class="material-symbols-outlined material-symbols-filled text-[24px]">timer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lembur -->
+      <div class="animate-fade-up delay-400 stat-card hover-lift rounded-2xl border border-border bg-white p-5 shadow-card relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-warning rounded-t-2xl"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-sm font-semibold text-ink-tertiary">Lembur</span>
+            <p class="mt-3 text-3xl font-extrabold text-ink">4<span class="text-lg text-ink-muted">j</span></p>
+            <p class="mt-1 text-xs font-medium text-ink-muted">2 kali lembur</p>
+          </div>
+          <div class="icon-circle flex h-12 w-12 items-center justify-center rounded-xl bg-warning-soft text-warning">
+            <span class="material-symbols-outlined material-symbols-filled text-[24px]">schedule</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sakit -->
+      <div class="animate-fade-up delay-500 stat-card hover-lift rounded-2xl border border-border bg-white p-5 shadow-card relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-ink-muted rounded-t-2xl"></div>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-sm font-semibold text-ink-tertiary">Sakit</span>
+            <p class="mt-3 text-3xl font-extrabold text-ink">1</p>
+            <p class="mt-1 text-xs font-medium text-ink-muted">Surat dokter terlampir</p>
+          </div>
+          <div class="icon-circle flex h-12 w-12 items-center justify-center rounded-xl bg-canvas text-ink-muted">
+            <span class="material-symbols-outlined material-symbols-filled text-[24px]">medical_services</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <section class="animate-fade-up delay-400 mt-6 -mx-4 overflow-x-auto px-4 no-scrollbar sm:mx-0 sm:px-0">
+      <div class="flex min-w-max gap-2">
+        <button class="tab-pill tab-active rounded-full px-5 py-2.5 text-sm font-bold">Semua Data</button>
+        <button class="tab-pill rounded-full border border-border bg-white px-5 py-2.5 text-sm font-bold text-ink-tertiary">Tepat Waktu</button>
+        <button class="tab-pill rounded-full border border-border bg-white px-5 py-2.5 text-sm font-bold text-ink-tertiary">Terlambat</button>
+        <button class="tab-pill rounded-full border border-border bg-white px-5 py-2.5 text-sm font-bold text-ink-tertiary">Lembur</button>
+        <button class="tab-pill rounded-full border border-border bg-white px-5 py-2.5 text-sm font-bold text-ink-tertiary">Cuti / Sakit</button>
+      </div>
+    </section>
+
+    <!-- Attendance List -->
+    <section class="animate-fade-up delay-500 mt-5 rounded-2xl border border-border bg-white shadow-card overflow-hidden">
+      <div class="flex items-center justify-between border-b border-border p-5 sm:p-6">
+        <div>
+          <h2 class="text-lg font-extrabold text-ink">Riwayat Kehadiran</h2>
+          <p class="mt-0.5 text-sm text-ink-muted">Urut dari data terbaru</p>
+        </div>
+        <button class="hidden items-center gap-2 rounded-xl border border-border bg-canvas px-4 py-2.5 text-sm font-bold text-primary transition hover:border-primary hover:bg-primary/5 sm:flex">
+          <span class="material-symbols-outlined text-[18px]">filter_list</span>
+          Filter
+        </button>
+      </div>
+
+      <div>
+        <!-- Row 1 -->
+        <article class="row-hover grid gap-3 p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-center sm:p-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
+              <p class="font-bold text-ink">Senin, 11 Mei</p>
+            </div>
+            <p class="mt-1 pl-6 text-sm text-ink-muted">Kantor Pusat - Sudirman</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl bg-canvas p-3 border border-border/60">
+              <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Masuk</p>
+              <p class="mt-1 text-lg font-extrabold text-ink">08:52</p>
+            </div>
+            <div class="rounded-xl bg-canvas p-3 border border-border/60">
+              <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Keluar</p>
+              <p class="mt-1 text-lg font-extrabold text-ink-muted">--:--</p>
+            </div>
+          </div>
+          <span class="status-badge w-fit rounded-full bg-primary/10 px-3.5 py-1.5 text-sm font-bold text-primary">Berjalan</span>
+        </article>
+
+        <!-- Row 2 -->
+        <article class="row-hover grid gap-3 border-t border-border p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-center sm:p-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
+              <p class="font-bold text-ink">Jumat, 8 Mei</p>
+            </div>
+            <p class="mt-1 pl-6 text-sm text-ink-muted">Durasi 8j 9m</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl bg-canvas p-3 border border-border/60">
+              <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Masuk</p>
+              <p class="mt-1 text-lg font-extrabold text-ink">08:57</p>
+            </div>
+            <div class="rounded-xl bg-canvas p-3 border border-border/60">
+              <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Keluar</p>
+              <p class="mt-1 text-lg font-extrabold text-ink">17:06</p>
+            </div>
+          </div>
+          <span class="status-badge w-fit rounded-full bg-success-soft px-3.5 py-1.5 text-sm font-bold text-success">Tepat Waktu</span>
+        </article>
+
+        <!-- Row 3 -->
+        <article class="row-hover grid gap-3 border-t border-border bg-warning-soft/25 p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-center sm:p-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-warning">calendar_today</span>
+              <p class="font-bold text-ink">Kamis, 7 Mei</p>
+            </div>
+            <p class="mt-1 pl-6 text-sm text-warning">Terlambat 12 menit</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl bg-white p-3 border border-warning/20">
+              <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Masuk</p>
+              <p class="mt-1 text-lg font-extrabold text-warning">09:12</p>
+            </div>
+            <div class="rounded-xl bg-white p-3 border border-warning/20">
+              <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Keluar</p>
+              <p class="mt-1 text-lg font-extrabold text-ink">17:20</p>
+            </div>
+          </div>
+          <span class="status-badge w-fit rounded-full bg-warning-soft px-3.5 py-1.5 text-sm font-bold text-warning">Terlambat</span>
+        </article>
+
+        <!-- Row 4 -->
+        <article class="row-hover grid gap-3 border-t border-border p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-center sm:p-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
+              <p class="font-bold text-ink">Rabu, 6 Mei</p>
+            </div>
+            <p class="mt-1 pl-6 text-sm text-ink-muted">Durasi 10j 20m</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl bg-canvas p-3 border border-border/60">
+              <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Masuk</p>
+              <p class="mt-1 text-lg font-extrabold text-ink">08:45</p>
+            </div>
+            <div class="rounded-xl bg-canvas p-3 border border-border/60">
+              <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Keluar</p>
+              <p class="mt-1 text-lg font-extrabold text-primary">19:05</p>
+            </div>
+          </div>
+          <span class="status-badge w-fit rounded-full bg-primary/10 px-3.5 py-1.5 text-sm font-bold text-primary">Lembur +2j</span>
+        </article>
+
+        <!-- Row 5 -->
+        <article class="row-hover grid gap-3 border-t border-border bg-canvas/60 p-5 opacity-85 sm:grid-cols-[1fr_1fr_auto] sm:items-center sm:p-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-ink-muted">calendar_today</span>
+              <p class="font-bold text-ink-secondary">Selasa, 5 Mei</p>
+            </div>
+            <p class="mt-1 pl-6 text-sm text-ink-muted">Keterangan dokter terlampir</p>
+          </div>
+          <div class="rounded-xl bg-white p-3 border border-border/60 sm:col-span-1">
+            <p class="text-xs font-bold uppercase tracking-wide text-ink-muted">Catatan</p>
+            <p class="mt-1 font-bold text-ink-secondary">Tidak masuk kerja</p>
+          </div>
+          <span class="status-badge w-fit rounded-full bg-canvas px-3.5 py-1.5 text-sm font-bold text-ink-muted border border-border">Sakit</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- Load More -->
+    <div class="animate-fade-up delay-600 mt-6 flex justify-center">
+      <button class="load-more-btn flex items-center gap-2 rounded-xl border border-border bg-white px-6 py-3 text-sm font-bold text-primary shadow-card">
+        Muat Lebih Banyak
+        <span class="material-symbols-outlined text-[18px]">expand_more</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- Spacer agar konten tidak tertutup bottom nav -->
+  <div class="h-24"></div>
+
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 left-0 z-50 w-full border-t border-border bg-white/92 px-4 py-2 shadow-[0_-12px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+    <div class="mx-auto grid max-w-md grid-cols-3 gap-2 pb-[env(safe-area-inset-bottom)]">
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-ink-muted transition hover:bg-canvas hover:text-primary" href="dashboard_kimi.html">
+        <span class="material-symbols-outlined text-[23px]">dashboard</span>
+        <span class="mt-1 text-xs font-bold">Dashboard</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl bg-primary/10 px-3 py-2 text-primary" href="report_kimi.html" aria-current="page">
+        <span class="material-symbols-outlined material-symbols-filled text-[23px]">calendar_month</span>
+        <span class="mt-1 text-xs font-bold">History</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-ink-muted transition hover:bg-canvas hover:text-primary" href="profile_kimi.html">
+        <span class="material-symbols-outlined text-[23px]">person</span>
+        <span class="mt-1 text-xs font-bold">Profile</span>
+      </a>
+    </div>
+  </nav>
+</body>
+</html>

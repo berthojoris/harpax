@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>WorkForce - Masuk</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#2563EB",
+            "primary-600": "#1D4ED8",
+            "primary-700": "#1E40AF",
+            "primary-900": "#1E3A8A",
+            accent: "#0EA5E9",
+            ink: "#0F172A",
+            "ink-secondary": "#334155",
+            "ink-tertiary": "#64748B",
+            "ink-muted": "#94A3B8",
+            border: "#E2E8F0",
+            canvas: "#F8FAFC"
+          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', "sans-serif"] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: "Plus Jakarta Sans", sans-serif; }
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24; }
+    .material-symbols-filled { font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 24; }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+    .delay-700 { animation-delay: 0.7s; }
+    .delay-800 { animation-delay: 0.8s; }
+    .delay-900 { animation-delay: 0.9s; }
+    .delay-1000 { animation-delay: 1.0s; }
+
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient-shift 8s ease infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      33% { transform: translateY(-20px) translateX(10px); }
+      66% { transform: translateY(10px) translateX(-10px); }
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-float-slow {
+      animation: float 10s ease-in-out infinite;
+    }
+    .animate-float-delay {
+      animation: float 8s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .shimmer-text {
+      background: linear-gradient(90deg, #ffffff 0%, #93C5FD 50%, #ffffff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .dot-pattern {
+      background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .input-icon-focus:focus ~ .input-icon,
+    .input-icon-focus:focus-within .input-icon {
+      color: #2563EB;
+    }
+
+    .custom-checkbox {
+      appearance: none;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid #E2E8F0;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .custom-checkbox:checked {
+      background-color: #2563EB;
+      border-color: #2563EB;
+    }
+    .custom-checkbox:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 6px;
+      height: 11px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .custom-checkbox:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .glow-focus:focus {
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .btn-lift {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+    }
+    .btn-lift:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-canvas text-ink antialiased">
+  <main class="mx-auto grid min-h-screen w-full lg:grid-cols-2">
+    <!-- Left Panel -->
+    <section class="relative hidden overflow-hidden lg:flex lg:flex-col lg:justify-between">
+      <!-- Animated gradient background -->
+      <div class="absolute inset-0 animate-gradient bg-gradient-to-br from-primary-900 via-primary-700 to-primary-600"></div>
+      <!-- Dot pattern overlay -->
+      <div class="absolute inset-0 dot-pattern opacity-60"></div>
+      <!-- Floating orbs -->
+      <div class="absolute -left-20 top-20 h-72 w-72 rounded-full bg-accent/20 blur-3xl animate-float"></div>
+      <div class="absolute right-10 top-40 h-56 w-56 rounded-full bg-white/10 blur-3xl animate-float-slow"></div>
+      <div class="absolute bottom-20 left-1/4 h-64 w-64 rounded-full bg-primary-600/25 blur-3xl animate-float-delay"></div>
+      <div class="absolute -right-10 bottom-40 h-48 w-48 rounded-full bg-accent/15 blur-3xl animate-float"></div>
+
+      <div class="relative z-10 p-10 xl:p-14">
+        <!-- Logo -->
+        <div class="animate-fade-up flex items-center gap-3">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/25">
+            <span class="material-symbols-outlined material-symbols-filled text-[24px] text-white">work_history</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-bold text-white">WorkForce</span>
+            <span class="rounded-md bg-accent/90 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white">Pro</span>
+          </div>
+        </div>
+
+        <!-- Heading -->
+        <div class="mt-14 animate-fade-up delay-200">
+          <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-white xl:text-5xl">
+            <span class="shimmer-text">WorkForce Attendance</span>
+          </h1>
+          <p class="mt-5 max-w-md text-base leading-relaxed text-white/75">
+            Absensi mobile yang cepat, akurat, dan terhubung dengan validasi lokasi kantor.
+          </p>
+        </div>
+
+        <!-- Glassmorphism Feature Cards -->
+        <div class="mt-10 grid gap-3 animate-fade-up delay-300">
+          <div class="glass-card rounded-xl p-4 transition hover:bg-white/10">
+            <div class="flex items-start gap-3">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/15">
+                <span class="material-symbols-outlined text-[18px] text-white">location_on</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">Validasi lokasi real-time</p>
+                <p class="mt-1 text-sm leading-6 text-white/65">Pastikan absensi hanya dilakukan dalam radius kantor yang diizinkan.</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-4 transition hover:bg-white/10">
+            <div class="flex items-start gap-3">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/15">
+                <span class="material-symbols-outlined text-[18px] text-white">analytics</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">Laporan kehadiran siap pakai</p>
+                <p class="mt-1 text-sm leading-6 text-white/65">Pantau jam kerja, keterlambatan, lembur, dan riwayat harian.</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card rounded-xl p-4 transition hover:bg-white/10">
+            <div class="flex items-start gap-3">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/15">
+                <span class="material-symbols-outlined text-[18px] text-white">shield</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">Keamanan data terjamin</p>
+                <p class="mt-1 text-sm leading-6 text-white/65">Enkripsi end-to-end dan autentikasi multi-faktor untuk perlindungan maksimal.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="relative z-10 border-t border-white/10 p-10 xl:p-14">
+        <div class="grid grid-cols-3 gap-6 animate-fade-up delay-500">
+          <div>
+            <p class="text-2xl font-extrabold text-white">12K+</p>
+            <p class="mt-1 text-xs font-medium text-white/60">Pegawai Aktif</p>
+          </div>
+          <div>
+            <p class="text-2xl font-extrabold text-white">99.9%</p>
+            <p class="mt-1 text-xs font-medium text-white/60">Uptime</p>
+          </div>
+          <div>
+            <p class="text-2xl font-extrabold text-white">500+</p>
+            <p class="mt-1 text-xs font-medium text-white/60">Perusahaan</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Panel -->
+    <section class="flex flex-col justify-center px-4 py-8 sm:px-8 lg:px-16 xl:px-24">
+      <!-- Mobile Logo -->
+      <div class="mb-8 flex items-center gap-3 lg:hidden animate-fade-up">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white shadow-lg">
+          <span class="material-symbols-outlined material-symbols-filled text-[24px]">work_history</span>
+        </div>
+        <div>
+          <p class="text-xl font-bold text-ink">WorkForce</p>
+          <p class="text-sm font-semibold text-ink-tertiary">Mobile Attendance</p>
+        </div>
+      </div>
+
+      <div class="mx-auto w-full max-w-md">
+        <div class="rounded-3xl border border-border bg-white p-6 shadow-[0_8px_32px_rgba(15,23,42,0.06)] sm:p-8">
+          <!-- Badge -->
+          <div class="animate-fade-up delay-100">
+            <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+              Masuk Akun
+            </span>
+            <h2 class="mt-4 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Selamat datang kembali</h2>
+            <p class="mt-2 text-sm leading-6 text-ink-tertiary">Gunakan akun pegawai untuk membuka dashboard absensi.</p>
+          </div>
+
+          <form action="dashboard_kimi.html" class="mt-7 space-y-5" method="get">
+            <!-- Email -->
+            <div class="animate-fade-up delay-200">
+              <label class="mb-1.5 block text-sm font-bold text-ink" for="email">Email</label>
+              <div class="input-icon-focus relative">
+                <span class="input-icon material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[20px] text-ink-muted transition-colors duration-200">mail</span>
+                <input
+                  class="glow-focus h-12 w-full rounded-xl border border-border bg-canvas pl-11 pr-4 text-sm font-semibold text-ink outline-none transition placeholder:font-medium placeholder:text-ink-muted hover:border-primary/40 focus:border-primary"
+                  id="email"
+                  name="email"
+                  placeholder="budi@company.com"
+                  required
+                  type="email"
+                />
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="animate-fade-up delay-300">
+              <div class="mb-1.5 flex items-center justify-between">
+                <label class="block text-sm font-bold text-ink" for="password">Kata Sandi</label>
+                <a class="text-sm font-bold text-primary transition hover:text-primary-700 hover:underline" href="login_kimi.html">Lupa kata sandi?</a>
+              </div>
+              <div class="input-icon-focus relative">
+                <span class="input-icon material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[20px] text-ink-muted transition-colors duration-200">lock</span>
+                <input
+                  class="glow-focus h-12 w-full rounded-xl border border-border bg-canvas pl-11 pr-4 text-sm font-semibold text-ink outline-none transition placeholder:font-medium placeholder:text-ink-muted hover:border-primary/40 focus:border-primary"
+                  id="password"
+                  name="password"
+                  placeholder="Masukkan kata sandi"
+                  required
+                  type="password"
+                />
+              </div>
+            </div>
+
+            <!-- Remember me -->
+            <div class="animate-fade-up delay-400 flex items-center justify-between">
+              <label class="flex cursor-pointer items-center gap-2.5 text-sm font-semibold text-ink-secondary">
+                <input class="custom-checkbox" type="checkbox" />
+                Ingat perangkat ini
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="animate-fade-up delay-500">
+              <button
+                class="btn-lift flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary-600 px-4 text-sm font-bold text-white shadow-lg shadow-primary/25"
+                type="submit"
+              >
+                Masuk
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Demo Account Info Card -->
+          <div class="mt-5 animate-fade-up delay-600 rounded-xl border border-primary/10 bg-gradient-to-br from-primary/[0.04] to-primary-600/[0.04] p-4">
+            <div class="flex items-start gap-3">
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                <span class="material-symbols-outlined text-[18px] text-primary">info</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-primary-900">Akun demo</p>
+                <p class="mt-0.5 text-sm font-medium text-primary-700">budi@company.com / password123</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact link -->
+        <p class="mt-6 animate-fade-up delay-700 text-center text-sm text-ink-tertiary">
+          Belum punya akun?
+          <a class="font-bold text-primary transition hover:text-primary-700 hover:underline" href="login_kimi.html">Hubungi administrator</a>
+        </p>
+
+        <!-- Trust Badges -->
+        <div class="mt-8 animate-fade-up delay-800 flex items-center justify-center gap-4 sm:gap-6">
+          <div class="flex items-center gap-1.5 text-ink-muted">
+            <span class="material-symbols-outlined text-[16px]">verified</span>
+            <span class="text-xs font-semibold">SSL Secure</span>
+          </div>
+          <div class="h-4 w-px bg-border"></div>
+          <div class="flex items-center gap-1.5 text-ink-muted">
+            <span class="material-symbols-outlined text-[16px]">check_circle</span>
+            <span class="text-xs font-semibold">Verified</span>
+          </div>
+          <div class="h-4 w-px bg-border"></div>
+          <div class="flex items-center gap-1.5 text-ink-muted">
+            <span class="material-symbols-outlined text-[16px]">sync</span>
+            <span class="text-xs font-semibold">Real-time</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

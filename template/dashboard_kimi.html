@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>WorkForce - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#2563EB",
+            "primary-600": "#1D4ED8",
+            "primary-700": "#1E40AF",
+            "primary-900": "#1E3A8A",
+            accent: "#0EA5E9",
+            ink: "#0F172A",
+            "ink-secondary": "#334155",
+            "ink-tertiary": "#64748B",
+            "ink-muted": "#94A3B8",
+            border: "#E2E8F0",
+            canvas: "#F8FAFC",
+            success: "#059669",
+            "success-soft": "#ECFDF5",
+            warning: "#D97706",
+            "warning-soft": "#FFFBEB",
+            danger: "#DC2626",
+            "danger-soft": "#FEF2F2"
+          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', "sans-serif"] },
+          boxShadow: {
+            soft: "0 4px 24px -4px rgba(15,23,42,0.06)",
+            lift: "0 12px 40px -8px rgba(37,99,235,0.25)",
+            card: "0 0 0 1px rgba(226,232,240,0.8), 0 4px 20px -4px rgba(15,23,42,0.05)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: "Plus Jakarta Sans", sans-serif; }
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24; }
+    .material-symbols-filled { font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 24; }
+    .safe-bottom { padding-bottom: max(180px, calc(160px + env(safe-area-inset-bottom))); }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+    .delay-700 { animation-delay: 0.7s; }
+    .delay-800 { animation-delay: 0.8s; }
+    .delay-900 { animation-delay: 0.9s; }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .shimmer-text {
+      background: linear-gradient(90deg, #ffffff 0%, #93C5FD 50%, #ffffff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      33% { transform: translateY(-20px) translateX(10px); }
+      66% { transform: translateY(10px) translateX(-10px); }
+    }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    .animate-float-slow { animation: float 10s ease-in-out infinite; }
+    .animate-float-delay { animation: float 8s ease-in-out infinite; animation-delay: 2s; }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 0.8; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .pulse-ring::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(220, 38, 38, 0.5);
+      animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+
+    @keyframes progress-fill {
+      from { width: 0%; }
+    }
+    .progress-animated {
+      animation: progress-fill 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .glass-header {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .btn-lift {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-lift:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(37, 99, 235, 0.28);
+    }
+    .btn-lift:active { transform: translateY(-1px); }
+
+    .card-hover {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px -8px rgba(37,99,235,0.18);
+    }
+
+    .icon-badge {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .group:hover .icon-badge {
+      transform: scale(1.08);
+    }
+
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body class="bg-canvas text-ink antialiased">
+  <!-- Header -->
+  <header class="glass-header sticky top-0 z-40 border-b border-border/60">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <div class="flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-600 text-white shadow-lift">
+          <span class="material-symbols-outlined material-symbols-filled">work_history</span>
+        </div>
+        <div>
+          <p class="text-lg font-extrabold leading-5 text-primary">WorkForce</p>
+          <p class="text-xs font-semibold text-ink-tertiary">Mobile Attendance</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="relative flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-ink-tertiary transition hover:border-primary/40 hover:text-primary hover:shadow-soft" aria-label="Buka notifikasi">
+          <span class="material-symbols-outlined text-[21px]">notifications</span>
+          <span class="absolute right-2 top-2 flex h-2.5 w-2.5">
+            <span class="pulse-ring absolute inset-0 rounded-full"></span>
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-danger ring-2 ring-white"></span>
+          </span>
+        </button>
+        <details class="relative">
+          <summary class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-ink-tertiary transition hover:border-primary/40 hover:shadow-soft" aria-label="Buka menu akun">
+            <img class="h-full w-full rounded-full object-cover" alt="Foto profil Bertho Joris" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=160&q=80" />
+          </summary>
+          <div class="absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-border bg-white shadow-lift animate-fade-up">
+            <a class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-ink transition hover:bg-canvas" href="profile_kimi.html">
+              <span class="material-symbols-outlined text-[20px] text-ink-muted">person</span>
+              Profil
+            </a>
+            <a class="flex items-center gap-3 border-t border-border px-4 py-3 text-sm font-bold text-danger transition hover:bg-danger-soft" href="login_kimi.html">
+              <span class="material-symbols-outlined text-[20px]">logout</span>
+              Logout
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </header>
+
+  <main class="safe-bottom mx-auto grid max-w-6xl gap-5 px-4 py-5 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+    <section class="space-y-5">
+      <!-- Hero Card -->
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-900 via-primary-700 to-primary-600 shadow-lift animate-fade-up">
+        <!-- Floating orbs -->
+        <div class="absolute -left-16 -top-16 h-64 w-64 rounded-full bg-accent/15 blur-3xl animate-float"></div>
+        <div class="absolute -bottom-12 -right-12 h-56 w-56 rounded-full bg-white/8 blur-3xl animate-float-slow"></div>
+        <div class="absolute left-1/3 top-1/2 h-48 w-48 rounded-full bg-primary-600/20 blur-3xl animate-float-delay"></div>
+
+        <div class="relative px-5 py-6 text-white sm:p-7">
+          <div class="relative flex items-start justify-between gap-4">
+            <div>
+              <p class="text-sm font-semibold text-white/70">Senin, 11 Mei 2026</p>
+              <h1 class="mt-2 text-2xl font-extrabold leading-tight sm:text-3xl">
+                <span class="shimmer-text">Selamat Pagi, Bertho Joris</span>
+              </h1>
+              <p class="mt-2 max-w-md text-sm leading-6 text-white/70">Shift reguler hari ini aktif. Anda sudah berada di area kantor dan siap melakukan absen masuk.</p>
+            </div>
+            <span class="shrink-0 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-bold text-white ring-1 ring-white/20 backdrop-blur-sm">On Site</span>
+          </div>
+
+          <div class="relative mt-6 grid gap-3 sm:grid-cols-3">
+            <div class="glass-card rounded-xl p-4">
+              <p class="text-xs font-bold uppercase tracking-wider text-white/55">Jam Sekarang</p>
+              <p class="mt-2 text-3xl font-extrabold">08:42</p>
+              <p class="mt-1 text-xs font-semibold text-white/60">WIB</p>
+            </div>
+            <div class="glass-card rounded-xl p-4">
+              <p class="text-xs font-bold uppercase tracking-wider text-white/55">Jadwal Shift</p>
+              <p class="mt-2 text-xl font-extrabold">09:00 - 17:00</p>
+              <p class="mt-1 text-xs font-semibold text-white/60">Grace period 15 menit</p>
+            </div>
+            <div class="glass-card rounded-xl p-4">
+              <p class="text-xs font-bold uppercase tracking-wider text-white/55">Status Hari Ini</p>
+              <p class="mt-2 text-xl font-extrabold">Belum Absen</p>
+              <p class="mt-1 text-xs font-semibold text-white/60">Masuk tersedia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Absen Cards -->
+      <section class="grid gap-3 sm:grid-cols-2 animate-fade-up delay-100">
+        <a href="absen_kimi.html" class="group card-hover rounded-2xl border border-primary/15 bg-white p-4 shadow-card">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="icon-badge flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-600 text-white shadow-lift">
+                <span class="material-symbols-outlined material-symbols-filled">login</span>
+              </div>
+              <div>
+                <h2 class="text-base font-extrabold">Absen Masuk</h2>
+                <p class="text-sm font-medium text-ink-tertiary">Rekam lokasi dan waktu masuk</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-primary transition duration-200 group-hover:translate-x-1">arrow_forward</span>
+          </div>
+          <div class="mt-4 flex items-center justify-between rounded-xl bg-primary/8 px-4 py-3">
+            <span class="text-sm font-bold text-primary-700">Siap digunakan</span>
+            <span class="text-sm font-extrabold text-primary">--:-- WIB</span>
+          </div>
+        </a>
+
+        <div class="rounded-2xl border border-border bg-white p-4 opacity-65 shadow-card">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-canvas text-ink-muted">
+                <span class="material-symbols-outlined">logout</span>
+              </div>
+              <div>
+                <h2 class="text-base font-extrabold text-ink-secondary">Absen Keluar</h2>
+                <p class="text-sm font-medium text-ink-muted">Aktif setelah absen masuk</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-ink-muted">lock</span>
+          </div>
+          <div class="mt-4 flex items-center justify-between rounded-xl bg-canvas px-4 py-3">
+            <span class="text-sm font-bold text-ink-muted">Belum tersedia</span>
+            <span class="text-sm font-extrabold text-ink-muted">--:-- WIB</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Weekly Attendance -->
+      <section class="rounded-2xl border border-border bg-white p-5 shadow-card animate-fade-up delay-200">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <h2 class="text-lg font-extrabold">Kehadiran Minggu Ini</h2>
+            <p class="mt-1 text-sm font-medium text-ink-tertiary">Target 40 jam kerja dalam 5 hari</p>
+          </div>
+          <a href="report_kimi.html" class="rounded-xl border border-border px-3 py-1.5 text-sm font-bold text-primary transition hover:border-primary hover:bg-primary/5">Detail</a>
+        </div>
+
+        <div class="mt-5 grid grid-cols-5 gap-2">
+          <div class="rounded-xl bg-success-soft p-3 text-center transition hover:shadow-soft">
+            <p class="text-xs font-extrabold text-success">Sen</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full bg-success text-white">
+              <span class="material-symbols-outlined material-symbols-filled text-[18px]">check</span>
+            </div>
+            <p class="mt-2 text-xs font-bold text-success">8j 15m</p>
+          </div>
+          <div class="rounded-xl bg-primary/6 p-3 text-center ring-2 ring-primary/20 transition hover:shadow-soft">
+            <p class="text-xs font-extrabold text-primary">Sel</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary bg-white">
+              <span class="h-2.5 w-2.5 rounded-full bg-primary"></span>
+            </div>
+            <p class="mt-2 text-xs font-bold text-primary">Hari ini</p>
+          </div>
+          <div class="rounded-xl bg-canvas p-3 text-center transition hover:shadow-soft">
+            <p class="text-xs font-extrabold text-ink-muted">Rab</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-ink-muted ring-1 ring-border">
+              <span class="material-symbols-outlined text-[18px]">more_horiz</span>
+            </div>
+            <p class="mt-2 text-xs font-bold text-ink-muted">Pending</p>
+          </div>
+          <div class="rounded-xl bg-canvas p-3 text-center transition hover:shadow-soft">
+            <p class="text-xs font-extrabold text-ink-muted">Kam</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-ink-muted ring-1 ring-border">
+              <span class="material-symbols-outlined text-[18px]">more_horiz</span>
+            </div>
+            <p class="mt-2 text-xs font-bold text-ink-muted">Pending</p>
+          </div>
+          <div class="rounded-xl bg-canvas p-3 text-center transition hover:shadow-soft">
+            <p class="text-xs font-extrabold text-ink-muted">Jum</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-ink-muted ring-1 ring-border">
+              <span class="material-symbols-outlined text-[18px]">more_horiz</span>
+            </div>
+            <p class="mt-2 text-xs font-bold text-ink-muted">Pending</p>
+          </div>
+        </div>
+
+        <div class="mt-5 rounded-xl bg-canvas p-4">
+          <div class="flex items-end justify-between gap-4">
+            <div>
+              <p class="text-sm font-semibold text-ink-tertiary">Total Jam Kerja</p>
+              <p class="mt-1 text-2xl font-extrabold text-primary">8j 15m <span class="text-sm font-semibold text-ink-muted">/ 40j</span></p>
+            </div>
+            <div class="rounded-xl bg-success-soft px-3 py-1.5 text-sm font-extrabold text-success">On Track</div>
+          </div>
+          <div class="mt-4 h-2.5 overflow-hidden rounded-full bg-white">
+            <div class="progress-animated h-full rounded-full bg-gradient-to-r from-primary to-accent" style="width: 21%"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <aside class="space-y-5">
+      <!-- Location Card -->
+      <section class="rounded-2xl border border-border bg-white p-5 shadow-card animate-fade-up delay-300">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h2 class="text-lg font-extrabold">Lokasi & Jaringan</h2>
+            <p class="mt-1 text-sm font-medium text-ink-tertiary">Validasi area absensi saat ini</p>
+          </div>
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-success-soft text-success shadow-soft">
+            <span class="material-symbols-outlined material-symbols-filled">my_location</span>
+          </span>
+        </div>
+
+        <div class="relative mt-5 overflow-hidden rounded-xl border border-border">
+          <img class="h-36 w-full object-cover" alt="Ilustrasi peta area kantor Sudirman" src="https://images.unsplash.com/photo-1569336415962-a4bd9f69c07a?auto=format&fit=crop&w=900&q=80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <p class="text-sm font-extrabold text-white">Kantor Pusat - Sudirman</p>
+            <p class="mt-0.5 text-xs font-semibold text-white/80">Gedung Sudirman, Jakarta Selatan</p>
+          </div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <div class="rounded-xl bg-success-soft p-3 transition hover:shadow-soft">
+            <div class="flex items-center gap-2 text-success">
+              <span class="material-symbols-outlined text-[18px]">verified</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider">Radius</span>
+            </div>
+            <p class="mt-2 text-lg font-extrabold text-success">42m</p>
+            <p class="text-xs font-semibold text-success/75">Diizinkan</p>
+          </div>
+          <div class="rounded-xl bg-primary/6 p-3 transition hover:shadow-soft">
+            <div class="flex items-center gap-2 text-primary">
+              <span class="material-symbols-outlined text-[18px]">wifi</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider">Jaringan</span>
+            </div>
+            <p class="mt-2 text-lg font-extrabold text-primary">Stabil</p>
+            <p class="text-xs font-semibold text-primary/75">4G / Wi-Fi</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Monthly Summary -->
+      <section class="rounded-2xl border border-border bg-white p-5 shadow-card animate-fade-up delay-400">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-extrabold">Ringkasan Bulan Ini</h2>
+          <span class="rounded-xl bg-warning-soft px-3 py-1 text-xs font-extrabold text-warning">Mei</span>
+        </div>
+        <div class="mt-5 grid grid-cols-3 gap-3">
+          <div class="rounded-xl border border-border p-3 text-center transition hover:shadow-soft">
+            <p class="text-2xl font-extrabold text-ink">18</p>
+            <p class="mt-1 text-xs font-bold text-ink-tertiary">Hadir</p>
+          </div>
+          <div class="rounded-xl border border-border p-3 text-center transition hover:shadow-soft">
+            <p class="text-2xl font-extrabold text-ink">2</p>
+            <p class="mt-1 text-xs font-bold text-ink-tertiary">Terlambat</p>
+          </div>
+          <div class="rounded-xl border border-border p-3 text-center transition hover:shadow-soft">
+            <p class="text-2xl font-extrabold text-ink">4j</p>
+            <p class="mt-1 text-xs font-bold text-ink-tertiary">Lembur</p>
+          </div>
+        </div>
+        <div class="mt-5 space-y-4">
+          <div>
+            <div class="mb-1.5 flex justify-between text-sm">
+              <span class="font-bold text-ink-secondary">Konsistensi</span>
+              <span class="font-extrabold text-success">92%</span>
+            </div>
+            <div class="h-2 overflow-hidden rounded-full bg-canvas">
+              <div class="progress-animated h-full rounded-full bg-success" style="width: 92%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="mb-1.5 flex justify-between text-sm">
+              <span class="font-bold text-ink-secondary">Ketepatan waktu</span>
+              <span class="font-extrabold text-primary">86%</span>
+            </div>
+            <div class="h-2 overflow-hidden rounded-full bg-canvas">
+              <div class="progress-animated h-full rounded-full bg-gradient-to-r from-primary to-accent" style="width: 86%"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="rounded-2xl border border-border bg-white p-5 shadow-card animate-fade-up delay-500">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-extrabold">Aktivitas Terakhir</h2>
+          <a href="report_kimi.html" class="text-sm font-bold text-primary transition hover:text-primary-700">Lihat</a>
+        </div>
+        <div class="mt-4 space-y-3">
+          <div class="flex items-center gap-3 rounded-xl bg-canvas p-3 transition hover:bg-success-soft/40">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-success-soft text-success">
+              <span class="material-symbols-outlined text-[20px]">check_circle</span>
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-bold">Absen keluar berhasil</p>
+              <p class="text-xs font-semibold text-ink-tertiary">Jumat, 8 Mei 2026 - 17:09 WIB</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 rounded-xl bg-canvas p-3 transition hover:bg-warning-soft/40">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-warning-soft text-warning">
+              <span class="material-symbols-outlined text-[20px]">schedule</span>
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-bold">Masuk terlambat 12 menit</p>
+              <p class="text-xs font-semibold text-ink-tertiary">Kamis, 7 Mei 2026 - 09:12 WIB</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- Spacer agar konten tidak tertutup bottom nav -->
+  <div class="h-24"></div>
+
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 left-0 z-50 w-full border-t border-border/60 bg-white/92 px-4 py-2 shadow-[0_-12px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+    <div class="mx-auto grid max-w-md grid-cols-3 gap-2 pb-[env(safe-area-inset-bottom)]">
+      <a class="flex flex-col items-center justify-center rounded-xl bg-primary/10 px-3 py-2 text-primary transition" href="dashboard_kimi.html" aria-current="page">
+        <span class="material-symbols-outlined material-symbols-filled text-[23px]">dashboard</span>
+        <span class="mt-1 text-xs font-extrabold">Dashboard</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-ink-muted transition hover:bg-canvas hover:text-primary" href="report_kimi.html">
+        <span class="material-symbols-outlined text-[23px]">calendar_month</span>
+        <span class="mt-1 text-xs font-bold">History</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-ink-muted transition hover:bg-canvas hover:text-primary" href="profile_kimi.html">
+        <span class="material-symbols-outlined text-[23px]">person</span>
+        <span class="mt-1 text-xs font-bold">Profile</span>
+      </a>
+    </div>
+  </nav>
+</body>
+</html>

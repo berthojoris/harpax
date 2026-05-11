@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>WorkForce - Absen</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#2563EB",
+            "primary-600": "#1D4ED8",
+            "primary-700": "#1E40AF",
+            "primary-900": "#1E3A8A",
+            accent: "#0EA5E9",
+            ink: "#0F172A",
+            "ink-secondary": "#334155",
+            "ink-tertiary": "#64748B",
+            "ink-muted": "#94A3B8",
+            border: "#E2E8F0",
+            canvas: "#F8FAFC",
+            success: "#059669",
+            "success-soft": "#ECFDF5",
+            warning: "#D97706",
+            "warning-soft": "#FFFBEB",
+            danger: "#DC2626"
+          },
+          boxShadow: {
+            soft: "0 12px 32px rgba(15, 23, 42, 0.08)",
+            lift: "0 18px 46px rgba(37, 99, 235, 0.22)",
+            card: "0 4px 20px rgba(15, 23, 42, 0.06)"
+          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', "sans-serif"] }
+        }
+      }
+    };
+  </script>
+  <style>
+    html { min-height: 100%; overflow-y: auto; }
+    body {
+      min-height: 100%;
+      overflow-y: auto;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      -webkit-overflow-scrolling: touch;
+    }
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24; }
+    .material-symbols-filled { font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 24; }
+    .safe-bottom { padding-bottom: calc(160px + env(safe-area-inset-bottom)); }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+    .delay-700 { animation-delay: 0.7s; }
+    .delay-800 { animation-delay: 0.8s; }
+
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient-shift 8s ease infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 0.6; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .pulse-ring {
+      animation: pulse-ring 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    .pulse-ring-delay {
+      animation: pulse-ring 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+      animation-delay: 0.6s;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.35); }
+      50% { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+    }
+    .pulse-glow {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes ripple {
+      0% { transform: scale(1); opacity: 0.4; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+    .ripple-ring {
+      animation: ripple 2.5s ease-out infinite;
+    }
+    .ripple-ring-delay {
+      animation: ripple 2.5s ease-out infinite;
+      animation-delay: 0.8s;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .glass-header {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .btn-lift {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-lift:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.32);
+    }
+    .btn-lift:active {
+      transform: translateY(-1px);
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 18px;
+      top: 36px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #E2E8F0 0%, #E2E8F0 100%);
+    }
+  </style>
+</head>
+<body class="bg-canvas text-ink antialiased">
+  <!-- Header -->
+  <header class="glass-header sticky top-0 z-40 border-b border-white/70">
+    <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+      <a class="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-ink-tertiary transition hover:border-primary hover:text-primary" href="dashboard_kimi.html" aria-label="Kembali">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="text-center">
+        <p class="text-xs font-bold uppercase tracking-wider text-ink-muted">WorkForce</p>
+        <h1 class="text-base font-bold text-ink">Absen Masuk</h1>
+      </div>
+      <details class="relative">
+        <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-border bg-white text-ink-tertiary transition hover:border-primary hover:text-primary" aria-label="Buka menu akun">
+          <span class="material-symbols-outlined text-[21px]">account_circle</span>
+        </summary>
+        <div class="absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
+          <a class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-ink transition hover:bg-canvas" href="profile_kimi.html">
+            <span class="material-symbols-outlined text-[20px] text-ink-muted">person</span>
+            Profil
+          </a>
+          <a class="flex items-center gap-3 border-t border-border px-4 py-3 text-sm font-bold text-danger transition hover:bg-red-50" href="login_kimi.html">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            Logout
+          </a>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <main class="safe-bottom mx-auto grid max-w-5xl gap-5 px-4 pt-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr]">
+    <!-- Time Card -->
+    <section class="animate-fade-up relative overflow-hidden rounded-2xl p-5 text-white shadow-lift sm:p-6">
+      <!-- Animated gradient background -->
+      <div class="absolute inset-0 animate-gradient bg-gradient-to-br from-primary-900 via-primary-700 to-primary-600"></div>
+      <!-- Subtle dot pattern -->
+      <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+      <div class="relative z-10">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-sm font-semibold text-white/70">Senin, 11 Mei 2026</p>
+            <p class="mt-3 text-5xl font-extrabold leading-none tracking-tight">08:42</p>
+            <p class="mt-2 text-sm font-semibold text-white/60">WIB - Server time</p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold ring-1 ring-white/20">
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-300"></span>
+            </span>
+            Siap Absen
+          </span>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 gap-3">
+          <div class="glass-card rounded-xl p-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-white/60">Shift</p>
+            <p class="mt-2 text-lg font-bold">09:00 - 17:00</p>
+            <p class="mt-1 text-xs text-white/60">Reguler</p>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-white/60">Status</p>
+            <p class="mt-2 text-lg font-bold">On Time</p>
+            <p class="mt-1 text-xs text-white/60">Grace 15 menit</p>
+          </div>
+        </div>
+
+        <button class="btn-lift mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-white to-slate-100 px-5 py-4 text-base font-bold text-primary shadow-lg shadow-primary-900/20 transition active:scale-[0.98]">
+          <span class="material-symbols-outlined material-symbols-filled text-[28px]">fingerprint</span>
+          Absen Masuk Sekarang
+        </button>
+        <p class="mt-4 text-center text-sm leading-6 text-white/65">Pastikan lokasi akurat sebelum menekan tombol absen.</p>
+      </div>
+    </section>
+
+    <!-- Right Column -->
+    <section class="space-y-5">
+      <!-- Map Card -->
+      <div class="animate-fade-up delay-100 overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
+        <div class="relative h-56 bg-slate-100 sm:h-64">
+          <img class="h-full w-full object-cover" alt="Peta area kantor Sudirman" src="https://images.unsplash.com/photo-1569336415962-a4bd9f69c07a?auto=format&fit=crop&w=1200&q=80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary-900/30 via-primary-900/5 to-transparent"></div>
+          <!-- Pulsing location marker -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative">
+              <div class="absolute -inset-10 rounded-full border border-primary/20 ripple-ring"></div>
+              <div class="absolute -inset-10 rounded-full border border-primary/15 ripple-ring-delay"></div>
+              <div class="absolute -inset-5 rounded-full bg-primary/10 pulse-ring"></div>
+              <div class="absolute -inset-3 rounded-full bg-primary/15 pulse-ring-delay"></div>
+              <div class="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-600 text-white shadow-lift ring-4 ring-white">
+                <span class="material-symbols-outlined material-symbols-filled">my_location</span>
+              </div>
+            </div>
+          </div>
+          <!-- Location info badge -->
+          <div class="absolute left-4 top-4 rounded-xl bg-white/92 px-3 py-2 shadow-card backdrop-blur">
+            <p class="text-xs font-bold text-success flex items-center gap-1">
+              <span class="material-symbols-outlined material-symbols-filled text-[14px]">verified</span>
+              Dalam Radius Kantor
+            </p>
+            <p class="text-xs font-medium text-ink-tertiary">Akurasi GPS 12m</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-start gap-3">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-success-soft text-success">
+              <span class="material-symbols-outlined material-symbols-filled">location_on</span>
+            </span>
+            <div>
+              <h2 class="text-base font-bold text-ink">Kantor Pusat - Sudirman</h2>
+              <p class="mt-1 text-sm leading-6 text-ink-tertiary">Gedung Sudirman Lantai 12, Jakarta Selatan. Jarak Anda 42m dari titik kantor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Validation Cards -->
+      <div class="animate-fade-up delay-200 grid gap-3 sm:grid-cols-3">
+        <div class="group relative overflow-hidden rounded-2xl border border-border bg-white p-4 shadow-card transition hover:shadow-soft">
+          <div class="absolute left-0 top-0 h-1 w-full bg-success"></div>
+          <div class="flex items-center gap-2 text-success">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-success-soft">
+              <span class="material-symbols-outlined text-[18px]">verified</span>
+            </span>
+            <span class="text-xs font-bold uppercase tracking-wider">Lokasi</span>
+          </div>
+          <p class="mt-3 text-xl font-extrabold text-ink">Valid</p>
+          <p class="mt-1 text-xs font-medium text-ink-tertiary">42m / 100m</p>
+        </div>
+        <div class="group relative overflow-hidden rounded-2xl border border-border bg-white p-4 shadow-card transition hover:shadow-soft">
+          <div class="absolute left-0 top-0 h-1 w-full bg-primary"></div>
+          <div class="flex items-center gap-2 text-primary">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+              <span class="material-symbols-outlined text-[18px]">wifi</span>
+            </span>
+            <span class="text-xs font-bold uppercase tracking-wider">Jaringan</span>
+          </div>
+          <p class="mt-3 text-xl font-extrabold text-ink">Stabil</p>
+          <p class="mt-1 text-xs font-medium text-ink-tertiary">Online</p>
+        </div>
+        <div class="group relative overflow-hidden rounded-2xl border border-border bg-white p-4 shadow-card transition hover:shadow-soft">
+          <div class="absolute left-0 top-0 h-1 w-full bg-warning"></div>
+          <div class="flex items-center gap-2 text-warning">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-warning-soft">
+              <span class="material-symbols-outlined text-[18px]">schedule</span>
+            </span>
+            <span class="text-xs font-bold uppercase tracking-wider">Toleransi</span>
+          </div>
+          <p class="mt-3 text-xl font-extrabold text-ink">33m</p>
+          <p class="mt-1 text-xs font-medium text-ink-tertiary">Sisa waktu</p>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <section class="animate-fade-up delay-300 rounded-2xl border border-border bg-white p-5 shadow-soft">
+        <h2 class="text-lg font-bold text-ink">Alur Absensi Hari Ini</h2>
+        <div class="relative mt-5 space-y-0">
+          <!-- Connecting line -->
+          <div class="timeline-line"></div>
+
+          <!-- Step 1: Active -->
+          <div class="relative flex gap-4 pb-6">
+            <div class="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-600 text-white shadow-lg shadow-primary/25">
+              <span class="material-symbols-outlined material-symbols-filled text-[18px]">login</span>
+            </div>
+            <div class="pt-0.5">
+              <p class="text-sm font-bold text-ink">Absen Masuk</p>
+              <p class="mt-0.5 text-sm text-ink-tertiary">Aktif sekarang, belum tercatat.</p>
+            </div>
+          </div>
+
+          <!-- Step 2: Disabled -->
+          <div class="relative flex gap-4 opacity-55">
+            <div class="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-canvas text-ink-muted ring-1 ring-border">
+              <span class="material-symbols-outlined text-[18px]">logout</span>
+            </div>
+            <div class="pt-0.5">
+              <p class="text-sm font-bold text-ink-secondary">Absen Keluar</p>
+              <p class="mt-0.5 text-sm text-ink-muted">Terbuka setelah absen masuk berhasil.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 left-0 z-50 w-full border-t border-border bg-white/92 px-4 py-2 shadow-[0_-12px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+    <div class="mx-auto grid max-w-md grid-cols-3 gap-2 pb-[env(safe-area-inset-bottom)]">
+      <a class="flex flex-col items-center justify-center rounded-xl bg-primary/10 px-3 py-2 text-primary transition" href="dashboard_kimi.html" aria-current="page">
+        <span class="material-symbols-outlined material-symbols-filled text-[23px]">dashboard</span>
+        <span class="mt-1 text-xs font-bold">Dashboard</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-ink-muted transition hover:bg-canvas hover:text-primary" href="report_kimi.html">
+        <span class="material-symbols-outlined text-[23px]">calendar_month</span>
+        <span class="mt-1 text-xs font-bold">History</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-ink-muted transition hover:bg-canvas hover:text-primary" href="profile_kimi.html">
+        <span class="material-symbols-outlined text-[23px]">person</span>
+        <span class="mt-1 text-xs font-bold">Profile</span>
+      </a>
+    </div>
+  </nav>
+</body>
+</html>
