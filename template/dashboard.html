@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>WorkForce - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#851800",
+                        "outline": "#737685",
+                        "primary-container": "#0052cc",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#82f9be",
+                        "surface-container": "#ededf8",
+                        "on-primary-fixed": "#001848",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "secondary-fixed-dim": "#65dca4",
+                        "surface-dim": "#d9d9e4",
+                        "primary": "#003d9b",
+                        "on-tertiary-fixed-variant": "#8b1a00",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "surface-variant": "#e1e2ec",
+                        "on-tertiary-fixed": "#3d0600",
+                        "secondary": "#006c47",
+                        "inverse-surface": "#2e3038",
+                        "tertiary-container": "#b02300",
+                        "surface-container-high": "#e7e7f2",
+                        "surface": "#faf8ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdad2",
+                        "outline-variant": "#c3c6d6",
+                        "on-secondary-fixed-variant": "#005235",
+                        "inverse-on-surface": "#f0f0fb",
+                        "on-surface": "#191b23",
+                        "background": "#faf8ff",
+                        "surface-container-low": "#f3f3fd",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e1e2ec",
+                        "on-tertiary-container": "#ffc6b9",
+                        "on-primary-container": "#c4d2ff",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#434654",
+                        "surface-bright": "#faf8ff",
+                        "inverse-primary": "#b2c5ff",
+                        "secondary-container": "#82f9be",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#0c56d0",
+                        "on-secondary-container": "#00734c",
+                        "on-background": "#191b23",
+                        "primary-fixed": "#dae2ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary-fixed-dim": "#ffb4a3",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "gutter": "12px",
+                        "container-margin": "16px",
+                        "safe": "env(safe-area-inset-bottom)"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface text-primary sticky top-0 z-40 shadow-sm flex justify-between items-center w-full px-container-margin py-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container flex-shrink-0 border border-outline-variant/30">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a young man with short dark hair, wearing a casual light blue button-down shirt. The background is softly blurred out, suggesting an outdoor setting with natural daylight. The lighting is bright and modern, creating a clean and approachable corporate aesthetic suitable for a profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDao740B-XdJqDCUFmQ5B-ccnRVdoT32FRrCRuVM57ybxLGJ_DxbbTcmmJMH9mXR2smjxij48B2QmkAksR1pDn8EhyYp671Mfn0zR32mgg7P9unvP4OPygjEEhGCyBOKSBBVaXqr56hSXtJTza2UED8kWWLkSSv3BcgigCLSwHvwe6lhh6spmjCTQdq5OGcqoYYsg2PfjeaS9Pq1Pb49w6zUlgV-JDjjGdwvIXXnrUhDuRaLV8jrbWlgZD4QXffZfse0Dpw5vNPUdoz"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">WorkForce</h1>
+<button aria-label="Notifications" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow px-container-margin py-lg space-y-xl pb-[100px] max-w-2xl mx-auto md:max-w-4xl">
+<!-- Greeting Section -->
+<section class="space-y-xs">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Selamat Pagi, <span class="text-primary">Budi!</span></h2>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                Senin, 24 Oktober 2023
+            </p>
+</section>
+<!-- Quick Actions (Masuk / Keluar) -->
+<section class="grid grid-cols-2 gap-md">
+<!-- Masuk Card (Active/Ready State) -->
+<button class="bg-surface rounded-xl p-md shadow-[0px_4px_12px_rgba(23,43,77,0.12)] border border-outline-variant/20 flex flex-col items-center justify-center gap-sm active:scale-95 transition-transform duration-200 group hover:border-secondary/30 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary-container/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="bg-secondary-container text-on-secondary-container p-sm rounded-full w-12 h-12 flex items-center justify-center relative z-10 shadow-sm">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">login</span>
+</div>
+<div class="text-center relative z-10">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Masuk</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">08:00 WIB</p>
+</div>
+</button>
+<!-- Keluar Card (Inactive State until Masuk is completed) -->
+<button class="bg-surface rounded-xl p-md shadow-[0px_2px_4px_rgba(23,43,77,0.05)] border border-outline-variant/20 flex flex-col items-center justify-center gap-sm opacity-60 pointer-events-none">
+<div class="bg-surface-container-highest text-on-surface-variant p-sm rounded-full w-12 h-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">logout</span>
+</div>
+<div class="text-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Keluar</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">--:-- WIB</p>
+</div>
+</button>
+</section>
+<!-- Weekly Progress Visualization -->
+<section class="bg-surface rounded-xl p-md shadow-[0px_2px_4px_rgba(23,43,77,0.05)] border border-outline-variant/20">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Kehadiran Minggu Ini</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">Detail</button>
+</div>
+<div class="flex justify-between items-center px-xs">
+<!-- Day 1: Present -->
+<div class="flex flex-col items-center gap-sm">
+<span class="font-label-sm text-label-sm text-on-surface">Sen</span>
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<!-- Day 2: Today (Active) -->
+<div class="flex flex-col items-center gap-sm">
+<span class="font-label-sm text-label-sm text-primary font-bold">Sel</span>
+<div class="w-8 h-8 rounded-full border-2 border-primary text-primary flex items-center justify-center bg-primary-container/10">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+</div>
+</div>
+<!-- Day 3: Future -->
+<div class="flex flex-col items-center gap-sm opacity-40">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Rab</span>
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+</div>
+<!-- Day 4: Future -->
+<div class="flex flex-col items-center gap-sm opacity-40">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Kam</span>
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+</div>
+<!-- Day 5: Future -->
+<div class="flex flex-col items-center gap-sm opacity-40">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Jum</span>
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+</div>
+</div>
+<div class="mt-lg pt-md border-t border-surface-variant flex justify-between items-end">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Total Jam Kerja</p>
+<p class="font-headline-md text-headline-md text-primary flex items-baseline gap-xs">
+                        8h 15m <span class="font-body-md text-body-md text-on-surface-variant">/ 40h</span>
+</p>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-xs px-2.5 py-1 rounded-md bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm border border-secondary-container">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> On Track
+                    </span>
+</div>
+</div>
+</section>
+<!-- Current Status Context -->
+<section class="bg-surface rounded-xl p-md shadow-[0px_2px_4px_rgba(23,43,77,0.05)] border border-outline-variant/20">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-md">Lokasi &amp; Jaringan</h3>
+<div class="flex items-start gap-md">
+<div class="bg-surface-container p-sm rounded-full text-primary flex-shrink-0 mt-xs">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">my_location</span>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface">Kantor Pusat - Sudirman</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Anda berada di dalam radius absensi yang diizinkan (Akurasi: 12m).</p>
+<div class="mt-sm flex items-center gap-xs text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">wifi</span> Jaringan Stabil
+                    </div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface shadow-[0px_-8px_24px_rgba(23,43,77,0.08)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm pb-[calc(0.5rem+env(safe-area-inset-bottom))] rounded-t-xl transition-transform duration-300">
+<!-- Dashboard (Active) -->
+<button class="flex flex-col items-center justify-center min-w-[64px] group">
+<div class="flex items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mb-1 transition-transform group-active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Dashboard</span>
+</button>
+<!-- History (Inactive) -->
+<button class="flex flex-col items-center justify-center min-w-[64px] text-on-surface-variant hover:text-primary transition-colors group">
+<div class="flex items-center justify-center rounded-full px-4 py-1 mb-1 group-active:scale-95 transition-transform">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<span class="font-label-sm text-label-sm">History</span>
+</button>
+<!-- Profile (Inactive) -->
+<button class="flex flex-col items-center justify-center min-w-[64px] text-on-surface-variant hover:text-primary transition-colors group">
+<div class="flex items-center justify-center rounded-full px-4 py-1 mb-1 group-active:scale-95 transition-transform">
+<span class="material-symbols-outlined">person</span>
+</div>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WorkForce - Check-in</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#851800",
+                        "outline": "#737685",
+                        "primary-container": "#0052cc",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#82f9be",
+                        "surface-container": "#ededf8",
+                        "on-primary-fixed": "#001848",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "secondary-fixed-dim": "#65dca4",
+                        "surface-dim": "#d9d9e4",
+                        "primary": "#003d9b",
+                        "on-tertiary-fixed-variant": "#8b1a00",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "surface-variant": "#e1e2ec",
+                        "on-tertiary-fixed": "#3d0600",
+                        "secondary": "#006c47",
+                        "inverse-surface": "#2e3038",
+                        "tertiary-container": "#b02300",
+                        "surface-container-high": "#e7e7f2",
+                        "surface": "#faf8ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdad2",
+                        "outline-variant": "#c3c6d6",
+                        "on-secondary-fixed-variant": "#005235",
+                        "inverse-on-surface": "#f0f0fb",
+                        "on-surface": "#191b23",
+                        "background": "#faf8ff",
+                        "surface-container-low": "#f3f3fd",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e1e2ec",
+                        "on-tertiary-container": "#ffc6b9",
+                        "on-primary-container": "#c4d2ff",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#434654",
+                        "surface-bright": "#faf8ff",
+                        "inverse-primary": "#b2c5ff",
+                        "secondary-container": "#82f9be",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#0c56d0",
+                        "on-secondary-container": "#00734c",
+                        "on-background": "#191b23",
+                        "primary-fixed": "#dae2ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary-fixed-dim": "#ffb4a3",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "gutter": "12px",
+                        "container-margin": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>.map-bg {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBAdQioMeKEyStK3tONz28LrzQW27hOAYiGnyFHSg2SVHbr-BvDwHcngHUwfKrIlNN10OcdBJT_3byse1dB9EWZnYwmgvXA4D5NIUerCQ07SiCiRSZgTbH8IhtdfqECBZFxXfP6a6w1yj8VOppVRhWli0XU1DTctYAYEtnKjsYLcvHkFbPqt95xBIT9L9YKpogBxgZm7h6FUHNO-4X83rIKnfajlUtTluw8CefrGrcMTPBfVM5VM5DU1Vtq477JNgqWPoIjLnMmJkWI);
+    background-size: cover;
+    background-position: center
+    }
+.scanner-ring {
+    position: relative
+    }
+.scanner-ring::before, .scanner-ring::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    border: 2px solid theme("colors.primary");
+    opacity: 0.3
+    }
+.scanner-ring::after {
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border: 1px solid theme("colors.primary");
+    opacity: 0.1
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface text-primary shadow-sm flex justify-between items-center w-full px-container-margin py-sm border-b border-outline-variant z-10 relative">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a person looking directly at the camera. The lighting is soft and even, highlighting their features. They are wearing business casual attire. The background is slightly blurred to focus on the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1OMKNPPgHzciQ0SvU5vVDNBQsQxTLnRhUcgl9xVbJ_k68GiCDIkfaoIuZIalbvInn7ZfnvFVKtYfXq3rpUMh0lpZaEtz3mVtNUNJCHv0-Ld8xBrZgpxhWUomKVqmOpIEinNsOPCq9c3qXtxawpiHAvMXYexGUGJDflDNvLZZGMQZ10f9jnoOMbegsrXA0Q7MYaF_5HSAPN_KKu18JsMVl-ypoc8fhc6MiyMN00K875BqhLnJPVUzRAlQ3ltqHY3s81S7tWqkeMJHH"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">WorkForce</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas (Map Full Bleed) -->
+<main class="flex-grow relative flex flex-col items-center justify-end pb-24 md:pb-32 map-bg" data-alt="A high-resolution, overhead view of a digital map interface. The map shows a city grid with soft blue and green tones, consistent with a modern light-mode corporate application. The styling is clean and minimalist, avoiding cluttered labels to maintain a professional aesthetic. Subtle shadows and gradients suggest depth and functionality." data-location="Jakarta, Indonesia">
+<!-- Gradient Overlay for readability at bottom -->
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent pointer-events-none"></div>
+<!-- Location Status Chip -->
+<div class="relative z-10 bg-surface/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 shadow-sm border border-outline-variant/30 mb-8">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Lokasi Saat Ini</span>
+<span class="font-label-md text-label-md text-on-surface">Gedung Sudirman, Jakarta</span>
+</div>
+<span class="material-symbols-outlined text-primary ml-2 text-sm">check_circle</span>
+</div>
+<!-- Biometric Scanner / Check-in Button area -->
+<div class="relative z-10 flex flex-col items-center mb-8">
+<button class="scanner-ring w-32 h-32 rounded-full bg-primary text-on-primary shadow-lg flex flex-col items-center justify-center gap-2 hover:bg-primary-fixed-variant transition-colors group">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+<span class="font-label-lg text-label-lg">Check In</span>
+</button>
+<p class="mt-8 font-body-md text-body-md text-on-surface-variant text-center max-w-xs">
+                Ketuk sensor untuk merekam kehadiran Anda hari ini. Pastikan Anda berada dalam radius kantor.
+            </p>
+</div>
+<!-- Sleek Success Notification (Hidden by default in a real app, shown here for visual completion) -->
+<!-- <div class="absolute top-24 left-1/2 transform -translate-x-1/2 w-[90%] max-w-md bg-secondary text-on-secondary rounded-lg shadow-lg p-4 flex items-center gap-3 z-20">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            <div class="flex flex-col">
+                <span class="font-label-lg text-label-lg">Berhasil Check In</span>
+                <span class="font-body-md text-body-md opacity-90">08:15 WIB - Tepat Waktu</span>
+            </div>
+        </div> -->
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface shadow-[0px_-8px_24px_rgba(23,43,77,0.08)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm pb-[calc(0.5rem+env(safe-area-inset-bottom))] rounded-t-xl transition-transform duration-300">
+<!-- Dashboard (Active) -->
+<button class="flex flex-col items-center justify-center min-w-[64px] group">
+<div class="flex items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mb-1 transition-transform group-active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Dashboard</span>
+</button>
+<!-- History (Inactive) -->
+<button class="flex flex-col items-center justify-center min-w-[64px] text-on-surface-variant hover:text-primary transition-colors group">
+<div class="flex items-center justify-center rounded-full px-4 py-1 mb-1 group-active:scale-95 transition-transform">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<span class="font-label-sm text-label-sm">History</span>
+</button>
+<!-- Profile (Inactive) -->
+<button class="flex flex-col items-center justify-center min-w-[64px] text-on-surface-variant hover:text-primary transition-colors group">
+<div class="flex items-center justify-center rounded-full px-4 py-1 mb-1 group-active:scale-95 transition-transform">
+<span class="material-symbols-outlined">person</span>
+</div>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+</body></html>
