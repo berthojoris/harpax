@@ -1,207 +1,212 @@
 <!DOCTYPE html>
-
-<html lang="id"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>WorkForce - Check-in</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary": "#851800",
-                        "outline": "#737685",
-                        "primary-container": "#0052cc",
-                        "on-primary": "#ffffff",
-                        "secondary-fixed": "#82f9be",
-                        "surface-container": "#ededf8",
-                        "on-primary-fixed": "#001848",
-                        "on-secondary": "#ffffff",
-                        "on-primary-fixed-variant": "#0040a2",
-                        "secondary-fixed-dim": "#65dca4",
-                        "surface-dim": "#d9d9e4",
-                        "primary": "#003d9b",
-                        "on-tertiary-fixed-variant": "#8b1a00",
-                        "primary-fixed-dim": "#b2c5ff",
-                        "surface-variant": "#e1e2ec",
-                        "on-tertiary-fixed": "#3d0600",
-                        "secondary": "#006c47",
-                        "inverse-surface": "#2e3038",
-                        "tertiary-container": "#b02300",
-                        "surface-container-high": "#e7e7f2",
-                        "surface": "#faf8ff",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed": "#ffdad2",
-                        "outline-variant": "#c3c6d6",
-                        "on-secondary-fixed-variant": "#005235",
-                        "inverse-on-surface": "#f0f0fb",
-                        "on-surface": "#191b23",
-                        "background": "#faf8ff",
-                        "surface-container-low": "#f3f3fd",
-                        "on-error": "#ffffff",
-                        "surface-container-highest": "#e1e2ec",
-                        "on-tertiary-container": "#ffc6b9",
-                        "on-primary-container": "#c4d2ff",
-                        "error": "#ba1a1a",
-                        "on-surface-variant": "#434654",
-                        "surface-bright": "#faf8ff",
-                        "inverse-primary": "#b2c5ff",
-                        "secondary-container": "#82f9be",
-                        "on-tertiary": "#ffffff",
-                        "surface-tint": "#0c56d0",
-                        "on-secondary-container": "#00734c",
-                        "on-background": "#191b23",
-                        "primary-fixed": "#dae2ff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary-fixed": "#002113",
-                        "tertiary-fixed-dim": "#ffb4a3",
-                        "on-error-container": "#93000a"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "sm": "8px",
-                        "lg": "24px",
-                        "xs": "4px",
-                        "xl": "32px",
-                        "md": "16px",
-                        "base": "4px",
-                        "gutter": "12px",
-                        "container-margin": "16px"
-                    },
-                    "fontFamily": {
-                        "label-sm": ["Inter"],
-                        "label-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "label-lg": ["Inter"],
-                        "headline-sm": ["Inter"],
-                        "headline-md": ["Inter"],
-                        "body-md": ["Inter"],
-                        "headline-lg": ["Inter"]
-                    },
-                    "fontSize": {
-                        "label-sm": ["11px", { "lineHeight": "16px", "fontWeight": "500" }],
-                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
-                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
-                    }
-                }
-            }
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>WorkForce - Absen</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#0647AD",
+            "primary-deep": "#003F9E",
+            "primary-soft": "#DDE8FF",
+            success: "#087A55",
+            "success-soft": "#DDFBEF",
+            warning: "#B45309",
+            "warning-soft": "#FEF3C7",
+            danger: "#DC2626",
+            ink: "#111827",
+            muted: "#6B7280",
+            line: "#D8DCEB",
+            canvas: "#F7F8FC",
+            card: "#FFFFFF"
+          },
+          boxShadow: {
+            soft: "0 12px 32px rgba(17, 24, 39, 0.08)",
+            lift: "0 18px 46px rgba(6, 71, 173, 0.18)"
+          },
+          fontFamily: { sans: ["Inter", "sans-serif"] }
         }
-    </script>
-<style>.map-bg {
-    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBAdQioMeKEyStK3tONz28LrzQW27hOAYiGnyFHSg2SVHbr-BvDwHcngHUwfKrIlNN10OcdBJT_3byse1dB9EWZnYwmgvXA4D5NIUerCQ07SiCiRSZgTbH8IhtdfqECBZFxXfP6a6w1yj8VOppVRhWli0XU1DTctYAYEtnKjsYLcvHkFbPqt95xBIT9L9YKpogBxgZm7h6FUHNO-4X83rIKnfajlUtTluw8CefrGrcMTPBfVM5VM5DU1Vtq477JNgqWPoIjLnMmJkWI);
-    background-size: cover;
-    background-position: center
-    }
-.scanner-ring {
-    position: relative
-    }
-.scanner-ring::before, .scanner-ring::after {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border-radius: 50%;
-    border: 2px solid theme("colors.primary");
-    opacity: 0.3
-    }
-.scanner-ring::after {
-    top: -20px;
-    left: -20px;
-    right: -20px;
-    bottom: -20px;
-    border: 1px solid theme("colors.primary");
-    opacity: 0.1
-    }</style>
-<style>
+      }
+    };
+  </script>
+  <style>
+    html { min-height: 100%; overflow-y: auto; }
     body {
-      min-height: max(884px, 100dvh);
+      min-height: 100%;
+      overflow-y: auto;
+      font-family: "Inter", sans-serif;
+      -webkit-overflow-scrolling: touch;
     }
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24; }
+    .material-symbols-filled { font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 24; }
+    .safe-bottom { padding-bottom: calc(160px + env(safe-area-inset-bottom)); }
   </style>
-  </head>
-<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
-<!-- TopAppBar -->
-<header class="bg-surface text-primary shadow-sm flex justify-between items-center w-full px-container-margin py-sm border-b border-outline-variant z-10 relative">
-<div class="flex items-center gap-sm">
-<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a person looking directly at the camera. The lighting is soft and even, highlighting their features. They are wearing business casual attire. The background is slightly blurred to focus on the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1OMKNPPgHzciQ0SvU5vVDNBQsQxTLnRhUcgl9xVbJ_k68GiCDIkfaoIuZIalbvInn7ZfnvFVKtYfXq3rpUMh0lpZaEtz3mVtNUNJCHv0-Ld8xBrZgpxhWUomKVqmOpIEinNsOPCq9c3qXtxawpiHAvMXYexGUGJDflDNvLZZGMQZ10f9jnoOMbegsrXA0Q7MYaF_5HSAPN_KKu18JsMVl-ypoc8fhc6MiyMN00K875BqhLnJPVUzRAlQ3ltqHY3s81S7tWqkeMJHH"/>
-</div>
-<h1 class="font-headline-md text-headline-md font-bold text-primary">WorkForce</h1>
-</div>
-<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-</header>
-<!-- Main Content Canvas (Map Full Bleed) -->
-<main class="flex-grow relative flex flex-col items-center justify-end pb-24 md:pb-32 map-bg" data-alt="A high-resolution, overhead view of a digital map interface. The map shows a city grid with soft blue and green tones, consistent with a modern light-mode corporate application. The styling is clean and minimalist, avoiding cluttered labels to maintain a professional aesthetic. Subtle shadows and gradients suggest depth and functionality." data-location="Jakarta, Indonesia">
-<!-- Gradient Overlay for readability at bottom -->
-<div class="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent pointer-events-none"></div>
-<!-- Location Status Chip -->
-<div class="relative z-10 bg-surface/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 shadow-sm border border-outline-variant/30 mb-8">
-<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">location_on</span>
-<div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Lokasi Saat Ini</span>
-<span class="font-label-md text-label-md text-on-surface">Gedung Sudirman, Jakarta</span>
-</div>
-<span class="material-symbols-outlined text-primary ml-2 text-sm">check_circle</span>
-</div>
-<!-- Biometric Scanner / Check-in Button area -->
-<div class="relative z-10 flex flex-col items-center mb-8">
-<button class="scanner-ring w-32 h-32 rounded-full bg-primary text-on-primary shadow-lg flex flex-col items-center justify-center gap-2 hover:bg-primary-fixed-variant transition-colors group">
-<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
-<span class="font-label-lg text-label-lg">Check In</span>
-</button>
-<p class="mt-8 font-body-md text-body-md text-on-surface-variant text-center max-w-xs">
-                Ketuk sensor untuk merekam kehadiran Anda hari ini. Pastikan Anda berada dalam radius kantor.
-            </p>
-</div>
-<!-- Sleek Success Notification (Hidden by default in a real app, shown here for visual completion) -->
-<!-- <div class="absolute top-24 left-1/2 transform -translate-x-1/2 w-[90%] max-w-md bg-secondary text-on-secondary rounded-lg shadow-lg p-4 flex items-center gap-3 z-20">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-            <div class="flex flex-col">
-                <span class="font-label-lg text-label-lg">Berhasil Check In</span>
-                <span class="font-body-md text-body-md opacity-90">08:15 WIB - Tepat Waktu</span>
+</head>
+<body class="bg-canvas text-ink antialiased">
+  <header class="sticky top-0 z-40 border-b border-white/70 bg-white/85 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+      <a class="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-muted" href="dashboard.html" aria-label="Kembali">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <div class="text-center">
+        <p class="text-sm font-semibold text-muted">WorkForce</p>
+        <h1 class="text-base font-bold text-ink">Absen Masuk</h1>
+      </div>
+      <details class="relative">
+        <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-line bg-white text-muted transition hover:border-primary hover:text-primary" aria-label="Buka menu akun">
+          <span class="material-symbols-outlined text-[21px]">account_circle</span>
+        </summary>
+        <div class="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-line bg-white shadow-soft">
+          <a class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-ink hover:bg-slate-50" href="profile.html">
+            <span class="material-symbols-outlined text-[20px] text-muted">person</span>
+            Profil
+          </a>
+          <a class="flex items-center gap-3 border-t border-line px-4 py-3 text-sm font-bold text-danger hover:bg-danger-soft" href="login.html">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            Logout
+          </a>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <main class="safe-bottom mx-auto grid max-w-5xl gap-5 px-4 pt-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr]">
+    <section class="rounded-xl bg-primary p-5 text-white shadow-lift sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-sm font-semibold text-white/75">Senin, 11 Mei 2026</p>
+          <p class="mt-3 text-5xl font-bold leading-none">08:42</p>
+          <p class="mt-2 text-sm font-semibold text-white/75">WIB - Server time</p>
+        </div>
+        <span class="rounded-lg bg-white/15 px-3 py-1 text-xs font-bold ring-1 ring-white/20">Siap Absen</span>
+      </div>
+
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <div class="rounded-lg bg-white/14 p-4 ring-1 ring-white/16">
+          <p class="text-xs font-bold uppercase text-white/65">Shift</p>
+          <p class="mt-2 text-lg font-bold">09:00 - 17:00</p>
+          <p class="mt-1 text-xs text-white/70">Reguler</p>
+        </div>
+        <div class="rounded-lg bg-white/14 p-4 ring-1 ring-white/16">
+          <p class="text-xs font-bold uppercase text-white/65">Status</p>
+          <p class="mt-2 text-lg font-bold">On Time</p>
+          <p class="mt-1 text-xs text-white/70">Grace 15 menit</p>
+        </div>
+      </div>
+
+      <button class="mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-white px-5 py-4 text-base font-bold text-primary shadow-soft transition active:scale-[0.98]">
+        <span class="material-symbols-outlined material-symbols-filled text-[28px]">fingerprint</span>
+        Absen Masuk Sekarang
+      </button>
+      <p class="mt-4 text-center text-sm leading-6 text-white/75">Pastikan lokasi akurat sebelum menekan tombol absen.</p>
+    </section>
+
+    <section class="space-y-5">
+      <div class="overflow-hidden rounded-xl border border-line bg-white shadow-soft">
+        <div class="relative h-56 bg-slate-100 sm:h-64">
+          <img class="h-full w-full object-cover" alt="Peta area kantor Sudirman" src="https://images.unsplash.com/photo-1569336415962-a4bd9f69c07a?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" />
+          <div class="absolute inset-0 bg-primary/10"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative">
+              <div class="absolute -inset-8 rounded-full border border-primary/25"></div>
+              <div class="absolute -inset-4 rounded-full bg-primary/15"></div>
+              <div class="relative flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lift ring-4 ring-white">
+                <span class="material-symbols-outlined material-symbols-filled">my_location</span>
+              </div>
             </div>
-        </div> -->
-</main>
-<!-- BottomNavBar -->
-<nav class="bg-surface shadow-[0px_-8px_24px_rgba(23,43,77,0.08)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm pb-[calc(0.5rem+env(safe-area-inset-bottom))] rounded-t-xl transition-transform duration-300">
-<!-- Dashboard (Active) -->
-<button class="flex flex-col items-center justify-center min-w-[64px] group">
-<div class="flex items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mb-1 transition-transform group-active:scale-95">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-</div>
-<span class="font-label-sm text-label-sm text-on-surface font-semibold">Dashboard</span>
-</button>
-<!-- History (Inactive) -->
-<button class="flex flex-col items-center justify-center min-w-[64px] text-on-surface-variant hover:text-primary transition-colors group">
-<div class="flex items-center justify-center rounded-full px-4 py-1 mb-1 group-active:scale-95 transition-transform">
-<span class="material-symbols-outlined">calendar_month</span>
-</div>
-<span class="font-label-sm text-label-sm">History</span>
-</button>
-<!-- Profile (Inactive) -->
-<button class="flex flex-col items-center justify-center min-w-[64px] text-on-surface-variant hover:text-primary transition-colors group">
-<div class="flex items-center justify-center rounded-full px-4 py-1 mb-1 group-active:scale-95 transition-transform">
-<span class="material-symbols-outlined">person</span>
-</div>
-<span class="font-label-sm text-label-sm">Profile</span>
-</button>
-</nav>
-</body></html>
+          </div>
+          <div class="absolute left-4 top-4 rounded-lg bg-white/92 px-3 py-2 shadow-soft backdrop-blur">
+            <p class="text-xs font-bold text-success">Dalam Radius Kantor</p>
+            <p class="text-xs font-medium text-muted">Akurasi GPS 12m</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-start gap-3">
+            <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-success-soft text-success">
+              <span class="material-symbols-outlined material-symbols-filled">location_on</span>
+            </span>
+            <div>
+              <h2 class="text-base font-bold">Kantor Pusat - Sudirman</h2>
+              <p class="mt-1 text-sm leading-6 text-muted">Gedung Sudirman Lantai 12, Jakarta Selatan. Jarak Anda 42m dari titik kantor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-3 sm:grid-cols-3">
+        <div class="rounded-xl border border-line bg-white p-4 shadow-soft">
+          <div class="flex items-center gap-2 text-success">
+            <span class="material-symbols-outlined text-[20px]">verified</span>
+            <span class="text-xs font-bold uppercase">Lokasi</span>
+          </div>
+          <p class="mt-3 text-xl font-bold">Valid</p>
+          <p class="mt-1 text-xs font-medium text-muted">42m / 100m</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-4 shadow-soft">
+          <div class="flex items-center gap-2 text-primary">
+            <span class="material-symbols-outlined text-[20px]">wifi</span>
+            <span class="text-xs font-bold uppercase">Jaringan</span>
+          </div>
+          <p class="mt-3 text-xl font-bold">Stabil</p>
+          <p class="mt-1 text-xs font-medium text-muted">Online</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-4 shadow-soft">
+          <div class="flex items-center gap-2 text-warning">
+            <span class="material-symbols-outlined text-[20px]">schedule</span>
+            <span class="text-xs font-bold uppercase">Toleransi</span>
+          </div>
+          <p class="mt-3 text-xl font-bold">33m</p>
+          <p class="mt-1 text-xs font-medium text-muted">Sisa waktu</p>
+        </div>
+      </div>
+
+      <section class="rounded-xl border border-line bg-white p-5 shadow-soft">
+        <h2 class="text-lg font-bold">Alur Absensi Hari Ini</h2>
+        <div class="mt-4 space-y-4">
+          <div class="flex gap-3">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white">
+              <span class="material-symbols-outlined material-symbols-filled text-[18px]">login</span>
+            </span>
+            <div>
+              <p class="text-sm font-bold">Absen Masuk</p>
+              <p class="text-sm text-muted">Aktif sekarang, belum tercatat.</p>
+            </div>
+          </div>
+          <div class="flex gap-3 opacity-65">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-muted">
+              <span class="material-symbols-outlined text-[18px]">logout</span>
+            </span>
+            <div>
+              <p class="text-sm font-bold">Absen Keluar</p>
+              <p class="text-sm text-muted">Terbuka setelah absen masuk berhasil.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <nav class="fixed bottom-0 left-0 z-50 w-full border-t border-line bg-white/92 px-4 py-2 shadow-[0_-12px_30px_rgba(17,24,39,0.08)] backdrop-blur-xl">
+    <div class="mx-auto grid max-w-md grid-cols-3 gap-2 pb-[env(safe-area-inset-bottom)]">
+      <a class="flex flex-col items-center justify-center rounded-xl bg-primary-soft px-3 py-2 text-primary" href="dashboard.html" aria-current="page">
+        <span class="material-symbols-outlined material-symbols-filled text-[23px]">dashboard</span>
+        <span class="mt-1 text-xs font-bold">Dashboard</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-muted transition hover:bg-slate-50 hover:text-primary" href="report.html">
+        <span class="material-symbols-outlined text-[23px]">calendar_month</span>
+        <span class="mt-1 text-xs font-bold">History</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-muted transition hover:bg-slate-50 hover:text-primary" href="profile.html">
+        <span class="material-symbols-outlined text-[23px]">person</span>
+        <span class="mt-1 text-xs font-bold">Profile</span>
+      </a>
+    </div>
+  </nav>
+</body>
+</html>

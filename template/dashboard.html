@@ -1,261 +1,350 @@
 <!DOCTYPE html>
-
-<html lang="id"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>WorkForce - Dashboard</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary": "#851800",
-                        "outline": "#737685",
-                        "primary-container": "#0052cc",
-                        "on-primary": "#ffffff",
-                        "secondary-fixed": "#82f9be",
-                        "surface-container": "#ededf8",
-                        "on-primary-fixed": "#001848",
-                        "on-secondary": "#ffffff",
-                        "on-primary-fixed-variant": "#0040a2",
-                        "secondary-fixed-dim": "#65dca4",
-                        "surface-dim": "#d9d9e4",
-                        "primary": "#003d9b",
-                        "on-tertiary-fixed-variant": "#8b1a00",
-                        "primary-fixed-dim": "#b2c5ff",
-                        "surface-variant": "#e1e2ec",
-                        "on-tertiary-fixed": "#3d0600",
-                        "secondary": "#006c47",
-                        "inverse-surface": "#2e3038",
-                        "tertiary-container": "#b02300",
-                        "surface-container-high": "#e7e7f2",
-                        "surface": "#faf8ff",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed": "#ffdad2",
-                        "outline-variant": "#c3c6d6",
-                        "on-secondary-fixed-variant": "#005235",
-                        "inverse-on-surface": "#f0f0fb",
-                        "on-surface": "#191b23",
-                        "background": "#faf8ff",
-                        "surface-container-low": "#f3f3fd",
-                        "on-error": "#ffffff",
-                        "surface-container-highest": "#e1e2ec",
-                        "on-tertiary-container": "#ffc6b9",
-                        "on-primary-container": "#c4d2ff",
-                        "error": "#ba1a1a",
-                        "on-surface-variant": "#434654",
-                        "surface-bright": "#faf8ff",
-                        "inverse-primary": "#b2c5ff",
-                        "secondary-container": "#82f9be",
-                        "on-tertiary": "#ffffff",
-                        "surface-tint": "#0c56d0",
-                        "on-secondary-container": "#00734c",
-                        "on-background": "#191b23",
-                        "primary-fixed": "#dae2ff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary-fixed": "#002113",
-                        "tertiary-fixed-dim": "#ffb4a3",
-                        "on-error-container": "#93000a"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "sm": "8px",
-                        "lg": "24px",
-                        "xs": "4px",
-                        "xl": "32px",
-                        "md": "16px",
-                        "base": "4px",
-                        "gutter": "12px",
-                        "container-margin": "16px",
-                        "safe": "env(safe-area-inset-bottom)"
-                    },
-                    "fontFamily": {
-                        "label-sm": ["Inter"],
-                        "label-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "label-lg": ["Inter"],
-                        "headline-sm": ["Inter"],
-                        "headline-md": ["Inter"],
-                        "body-md": ["Inter"],
-                        "headline-lg": ["Inter"]
-                    },
-                    "fontSize": {
-                        "label-sm": ["11px", { "lineHeight": "16px", "fontWeight": "500" }],
-                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
-                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
-                    }
-                }
-            }
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>WorkForce - Dashboard 2</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#0647AD",
+            "primary-deep": "#003F9E",
+            "primary-soft": "#DDE8FF",
+            success: "#087A55",
+            "success-soft": "#DDFBEF",
+            warning: "#B45309",
+            "warning-soft": "#FEF3C7",
+            danger: "#DC2626",
+            ink: "#111827",
+            muted: "#6B7280",
+            line: "#D8DCEB",
+            canvas: "#F7F8FC",
+            card: "#FFFFFF"
+          },
+          boxShadow: {
+            soft: "0 12px 32px rgba(17, 24, 39, 0.08)",
+            lift: "0 18px 46px rgba(6, 71, 173, 0.18)"
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"]
+          }
         }
-    </script>
-<style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
+      }
+    };
+  </script>
+  <style>
+    body { font-family: "Inter", sans-serif; }
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
     }
+    .material-symbols-filled {
+      font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 24;
+    }
+    .safe-bottom { padding-bottom: max(96px, calc(88px + env(safe-area-inset-bottom))); }
   </style>
-  </head>
-<body class="bg-background text-on-background min-h-screen pb-[100px] antialiased">
-<!-- TopAppBar -->
-<header class="bg-surface docked full-width top-0 border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-container-margin py-sm sticky z-40">
-<div class="flex items-center gap-md">
-<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant shrink-0">
-<img class="w-full h-full object-cover" data-alt="A professional headshot of a young man with short dark hair, wearing a casual light blue button-down shirt. The background is softly blurred out, suggesting an outdoor setting with natural daylight. The lighting is bright and modern, creating a clean and approachable corporate aesthetic suitable for a profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDao740B-XdJqDCUFmQ5B-ccnRVdoT32FRrCRuVM57ybxLGJ_DxbbTcmmJMH9mXR2smjxij48B2QmkAksR1pDn8EhyYp671Mfn0zR32mgg7P9unvP4OPygjEEhGCyBOKSBBVaXqr56hSXtJTza2UED8kWWLkSSv3BcgigCLSwHvwe6lhh6spmjCTQdq5OGcqoYYsg2PfjeaS9Pq1Pb49w6zUlgV-JDjjGdwvIXXnrUhDuRaLV8jrbWlgZD4QXffZfse0Dpw5vNPUdoz"/>
-</div>
-<h1 class="font-headline-lg text-headline-lg font-bold text-primary">WorkForce</h1>
-</div>
-<button class="flex items-center justify-center p-sm rounded-full text-primary hover:bg-surface-container-high transition-colors opacity-80 hover:opacity-100 duration-150">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
-</button>
-</header>
-<!-- Main Content Canvas -->
-<main class="flex-grow px-container-margin py-lg space-y-xl pb-[100px] max-w-2xl mx-auto md:max-w-4xl">
-<!-- Greeting Section -->
-<section class="space-y-xs">
-<h2 class="font-headline-lg text-headline-lg text-on-surface">Selamat Pagi, <span class="text-primary">Budi!</span></h2>
-<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs">
-<span class="material-symbols-outlined text-[16px]">calendar_today</span>
-                Senin, 24 Oktober 2023
-            </p>
-</section>
-<!-- Quick Actions (Masuk / Keluar) -->
-<section class="grid grid-cols-2 gap-md">
-<!-- Masuk Card (Active/Ready State) -->
-<button class="bg-surface rounded-xl p-md shadow-[0px_4px_12px_rgba(23,43,77,0.12)] border border-outline-variant/20 flex flex-col items-center justify-center gap-sm active:scale-95 transition-transform duration-200 group hover:border-secondary/30 relative overflow-hidden">
-<div class="absolute inset-0 bg-gradient-to-br from-secondary-container/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-<div class="bg-secondary-container text-on-secondary-container p-sm rounded-full w-12 h-12 flex items-center justify-center relative z-10 shadow-sm">
-<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">login</span>
-</div>
-<div class="text-center relative z-10">
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Masuk</h3>
-<p class="font-label-md text-label-md text-on-surface-variant mt-xs">08:00 WIB</p>
-</div>
-</button>
-<!-- Keluar Card (Inactive State until Masuk is completed) -->
-<button class="bg-surface rounded-xl p-md shadow-[0px_2px_4px_rgba(23,43,77,0.05)] border border-outline-variant/20 flex flex-col items-center justify-center gap-sm opacity-60 pointer-events-none">
-<div class="bg-surface-container-highest text-on-surface-variant p-sm rounded-full w-12 h-12 flex items-center justify-center">
-<span class="material-symbols-outlined text-[24px]">logout</span>
-</div>
-<div class="text-center">
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Keluar</h3>
-<p class="font-label-md text-label-md text-on-surface-variant mt-xs">--:-- WIB</p>
-</div>
-</button>
-</section>
-<!-- Weekly Progress Visualization -->
-<section class="bg-surface rounded-xl p-md shadow-[0px_2px_4px_rgba(23,43,77,0.05)] border border-outline-variant/20">
-<div class="flex justify-between items-center mb-md">
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Kehadiran Minggu Ini</h3>
-<button class="text-primary font-label-md text-label-md hover:underline">Detail</button>
-</div>
-<div class="flex justify-between items-center px-xs">
-<!-- Day 1: Present -->
-<div class="flex flex-col items-center gap-sm">
-<span class="font-label-sm text-label-sm text-on-surface">Sen</span>
-<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
-<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check</span>
-</div>
-</div>
-<!-- Day 2: Today (Active) -->
-<div class="flex flex-col items-center gap-sm">
-<span class="font-label-sm text-label-sm text-primary font-bold">Sel</span>
-<div class="w-8 h-8 rounded-full border-2 border-primary text-primary flex items-center justify-center bg-primary-container/10">
-<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-</div>
-</div>
-<!-- Day 3: Future -->
-<div class="flex flex-col items-center gap-sm opacity-40">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Rab</span>
-<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center">
-<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
-</div>
-</div>
-<!-- Day 4: Future -->
-<div class="flex flex-col items-center gap-sm opacity-40">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Kam</span>
-<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center">
-<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
-</div>
-</div>
-<!-- Day 5: Future -->
-<div class="flex flex-col items-center gap-sm opacity-40">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Jum</span>
-<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center">
-<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
-</div>
-</div>
-</div>
-<div class="mt-lg pt-md border-t border-surface-variant flex justify-between items-end">
-<div>
-<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Total Jam Kerja</p>
-<p class="font-headline-md text-headline-md text-primary flex items-baseline gap-xs">
-                        8h 15m <span class="font-body-md text-body-md text-on-surface-variant">/ 40h</span>
-</p>
-</div>
-<div class="text-right">
-<span class="inline-flex items-center gap-xs px-2.5 py-1 rounded-md bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm border border-secondary-container">
-<span class="material-symbols-outlined text-[14px]">trending_up</span> On Track
-                    </span>
-</div>
-</div>
-</section>
-<!-- Current Status Context -->
-<section class="bg-surface rounded-xl p-md shadow-[0px_2px_4px_rgba(23,43,77,0.05)] border border-outline-variant/20">
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-md">Lokasi &amp; Jaringan</h3>
-<div class="flex items-start gap-md">
-<div class="bg-surface-container p-sm rounded-full text-primary flex-shrink-0 mt-xs">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">my_location</span>
-</div>
-<div>
-<h4 class="font-label-lg text-label-lg text-on-surface">Kantor Pusat - Sudirman</h4>
-<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Anda berada di dalam radius absensi yang diizinkan (Akurasi: 12m).</p>
-<div class="mt-sm flex items-center gap-xs text-secondary font-label-sm text-label-sm">
-<span class="material-symbols-outlined text-[14px]">wifi</span> Jaringan Stabil
-                    </div>
-</div>
-</div>
-</section>
-</main>
-<!-- BottomNavBar -->
-<nav class="bg-surface shadow-[0px_-8px_24px_rgba(23,43,77,0.08)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm pb-[calc(0.5rem+env(safe-area-inset-bottom))] rounded-t-xl transition-transform duration-300">
-<!-- Dashboard (Active) -->
-<button class="flex flex-col items-center justify-center min-w-[64px] group">
-<div class="flex items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mb-1 transition-transform group-active:scale-95">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-</div>
-<span class="font-label-sm text-label-sm text-on-surface font-semibold">Dashboard</span>
-</button>
-<!-- History (Inactive) -->
-<button class="flex flex-col items-center justify-center min-w-[64px] text-on-surface-variant hover:text-primary transition-colors group">
-<div class="flex items-center justify-center rounded-full px-4 py-1 mb-1 group-active:scale-95 transition-transform">
-<span class="material-symbols-outlined">calendar_month</span>
-</div>
-<span class="font-label-sm text-label-sm">History</span>
-</button>
-<!-- Profile (Inactive) -->
-<button class="flex flex-col items-center justify-center min-w-[64px] text-on-surface-variant hover:text-primary transition-colors group">
-<div class="flex items-center justify-center rounded-full px-4 py-1 mb-1 group-active:scale-95 transition-transform">
-<span class="material-symbols-outlined">person</span>
-</div>
-<span class="font-label-sm text-label-sm">Profile</span>
-</button>
-</nav>
-</body></html>
+</head>
+<body class="bg-canvas text-ink antialiased">
+  <header class="sticky top-0 z-40 border-b border-white/70 bg-white/85 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <div class="flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-white shadow-lift">
+          <span class="material-symbols-outlined material-symbols-filled">work_history</span>
+        </div>
+        <div>
+          <p class="text-lg font-bold leading-5 text-primary">WorkForce</p>
+          <p class="text-xs font-medium text-muted">Mobile Attendance</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="relative flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-muted transition hover:border-primary hover:text-primary" aria-label="Buka notifikasi">
+          <span class="material-symbols-outlined text-[21px]">notifications</span>
+          <span class="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-danger ring-2 ring-white"></span>
+        </button>
+        <details class="relative">
+          <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-line bg-white text-muted transition hover:border-primary hover:text-primary" aria-label="Buka menu akun">
+            <img class="h-full w-full rounded-full object-cover" alt="Foto profil Budi" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=160&amp;q=80" />
+          </summary>
+          <div class="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-line bg-white shadow-soft">
+            <a class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-ink hover:bg-slate-50" href="profile.html">
+              <span class="material-symbols-outlined text-[20px] text-muted">person</span>
+              Profil
+            </a>
+            <a class="flex items-center gap-3 border-t border-line px-4 py-3 text-sm font-bold text-danger hover:bg-danger-soft" href="login.html">
+              <span class="material-symbols-outlined text-[20px]">logout</span>
+              Logout
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </header>
+
+  <main class="safe-bottom mx-auto grid max-w-6xl gap-5 px-4 py-5 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+    <section class="space-y-5">
+      <div class="overflow-hidden rounded-xl bg-primary shadow-lift">
+        <div class="relative px-5 py-6 text-white sm:p-7">
+          <div class="relative flex items-start justify-between gap-4">
+            <div>
+              <p class="text-sm font-semibold text-white/75">Senin, 11 Mei 2026</p>
+              <h1 class="mt-2 text-2xl font-bold leading-tight sm:text-3xl">Selamat Pagi, Budi</h1>
+              <p class="mt-2 max-w-md text-sm leading-6 text-white/78">Shift reguler hari ini aktif. Anda sudah berada di area kantor dan siap melakukan absen masuk.</p>
+            </div>
+            <span class="rounded-lg bg-white/15 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/20">On Site</span>
+          </div>
+
+          <div class="relative mt-6 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-lg bg-white/14 p-4 ring-1 ring-white/16">
+              <p class="text-xs font-semibold uppercase text-white/65">Jam Sekarang</p>
+              <p class="mt-2 text-3xl font-bold">08:42</p>
+              <p class="mt-1 text-xs font-medium text-white/70">WIB</p>
+            </div>
+            <div class="rounded-lg bg-white/14 p-4 ring-1 ring-white/16">
+              <p class="text-xs font-semibold uppercase text-white/65">Jadwal Shift</p>
+              <p class="mt-2 text-xl font-bold">09:00 - 17:00</p>
+              <p class="mt-1 text-xs font-medium text-white/70">Grace period 15 menit</p>
+            </div>
+            <div class="rounded-lg bg-white/14 p-4 ring-1 ring-white/16">
+              <p class="text-xs font-semibold uppercase text-white/65">Status Hari Ini</p>
+              <p class="mt-2 text-xl font-bold">Belum Absen</p>
+              <p class="mt-1 text-xs font-medium text-white/70">Masuk tersedia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="grid gap-3 sm:grid-cols-2">
+        <a href="absen.html" class="group rounded-xl border border-primary/15 bg-white p-4 shadow-soft transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-lift">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-white">
+                <span class="material-symbols-outlined material-symbols-filled">login</span>
+              </div>
+              <div>
+                <h2 class="text-base font-bold">Absen Masuk</h2>
+                <p class="text-sm text-muted">Rekam lokasi dan waktu masuk</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-primary transition group-hover:translate-x-1">arrow_forward</span>
+          </div>
+          <div class="mt-4 flex items-center justify-between rounded-lg bg-primary-soft px-4 py-3">
+            <span class="text-sm font-semibold text-primary-deep">Siap digunakan</span>
+            <span class="text-sm font-bold text-primary">--:-- WIB</span>
+          </div>
+        </a>
+
+        <div class="rounded-xl border border-line bg-white p-4 opacity-75 shadow-soft">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-100 text-muted">
+                <span class="material-symbols-outlined">logout</span>
+              </div>
+              <div>
+                <h2 class="text-base font-bold">Absen Keluar</h2>
+                <p class="text-sm text-muted">Aktif setelah absen masuk</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-muted">lock</span>
+          </div>
+          <div class="mt-4 flex items-center justify-between rounded-lg bg-slate-50 px-4 py-3">
+            <span class="text-sm font-semibold text-muted">Belum tersedia</span>
+            <span class="text-sm font-bold text-muted">--:-- WIB</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-xl border border-line bg-white p-5 shadow-soft">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <h2 class="text-lg font-bold">Kehadiran Minggu Ini</h2>
+            <p class="mt-1 text-sm text-muted">Target 40 jam kerja dalam 5 hari</p>
+          </div>
+          <a href="report.html" class="rounded-lg border border-line px-3 py-1.5 text-sm font-semibold text-primary transition hover:border-primary">Detail</a>
+        </div>
+
+        <div class="mt-5 grid grid-cols-5 gap-2">
+          <div class="rounded-lg bg-success-soft p-3 text-center">
+            <p class="text-xs font-bold text-success">Sen</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full bg-success text-white">
+              <span class="material-symbols-outlined material-symbols-filled text-[18px]">check</span>
+            </div>
+            <p class="mt-2 text-xs font-semibold text-success">8j 15m</p>
+          </div>
+          <div class="rounded-lg bg-primary-soft p-3 text-center ring-2 ring-primary/18">
+            <p class="text-xs font-bold text-primary">Sel</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary bg-white">
+              <span class="h-2.5 w-2.5 rounded-full bg-primary"></span>
+            </div>
+            <p class="mt-2 text-xs font-semibold text-primary">Hari ini</p>
+          </div>
+          <div class="rounded-lg bg-slate-50 p-3 text-center">
+            <p class="text-xs font-bold text-muted">Rab</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-slate-300 ring-1 ring-line">
+              <span class="material-symbols-outlined text-[18px]">more_horiz</span>
+            </div>
+            <p class="mt-2 text-xs font-semibold text-muted">Pending</p>
+          </div>
+          <div class="rounded-lg bg-slate-50 p-3 text-center">
+            <p class="text-xs font-bold text-muted">Kam</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-slate-300 ring-1 ring-line">
+              <span class="material-symbols-outlined text-[18px]">more_horiz</span>
+            </div>
+            <p class="mt-2 text-xs font-semibold text-muted">Pending</p>
+          </div>
+          <div class="rounded-lg bg-slate-50 p-3 text-center">
+            <p class="text-xs font-bold text-muted">Jum</p>
+            <div class="mx-auto mt-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-slate-300 ring-1 ring-line">
+              <span class="material-symbols-outlined text-[18px]">more_horiz</span>
+            </div>
+            <p class="mt-2 text-xs font-semibold text-muted">Pending</p>
+          </div>
+        </div>
+
+        <div class="mt-5 rounded-lg bg-slate-50 p-4">
+          <div class="flex items-end justify-between gap-4">
+            <div>
+              <p class="text-sm font-semibold text-muted">Total Jam Kerja</p>
+              <p class="mt-1 text-2xl font-bold text-primary">8j 15m <span class="text-sm font-semibold text-muted">/ 40j</span></p>
+            </div>
+            <div class="rounded-lg bg-success-soft px-3 py-1.5 text-sm font-bold text-success">On Track</div>
+          </div>
+          <div class="mt-4 h-2.5 overflow-hidden rounded-full bg-slate-200">
+            <div class="h-full w-[21%] rounded-full bg-primary"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <aside class="space-y-5">
+      <section class="rounded-xl border border-line bg-white p-5 shadow-soft">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h2 class="text-lg font-bold">Lokasi &amp; Jaringan</h2>
+            <p class="mt-1 text-sm text-muted">Validasi area absensi saat ini</p>
+          </div>
+          <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-success-soft text-success">
+            <span class="material-symbols-outlined material-symbols-filled">my_location</span>
+          </span>
+        </div>
+
+        <div class="mt-5 overflow-hidden rounded-lg border border-line bg-slate-50">
+          <img class="h-36 w-full object-cover" alt="Ilustrasi peta area kantor Sudirman" src="https://images.unsplash.com/photo-1569336415962-a4bd9f69c07a?auto=format&amp;fit=crop&amp;w=900&amp;q=80" />
+          <div class="p-4">
+            <p class="text-sm font-bold">Kantor Pusat - Sudirman</p>
+            <p class="mt-1 text-sm leading-5 text-muted">Gedung Sudirman, Jakarta Selatan. Dalam radius absensi 100 meter.</p>
+          </div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <div class="rounded-lg bg-success-soft p-3">
+            <div class="flex items-center gap-2 text-success">
+              <span class="material-symbols-outlined text-[18px]">verified</span>
+              <span class="text-xs font-bold uppercase">Radius</span>
+            </div>
+            <p class="mt-2 text-lg font-bold text-success">42m</p>
+            <p class="text-xs font-medium text-success/75">Diizinkan</p>
+          </div>
+          <div class="rounded-lg bg-primary-soft p-3">
+            <div class="flex items-center gap-2 text-primary">
+              <span class="material-symbols-outlined text-[18px]">wifi</span>
+              <span class="text-xs font-bold uppercase">Jaringan</span>
+            </div>
+            <p class="mt-2 text-lg font-bold text-primary">Stabil</p>
+            <p class="text-xs font-medium text-primary/75">4G / Wi-Fi</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-xl border border-line bg-white p-5 shadow-soft">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold">Ringkasan Bulan Ini</h2>
+          <span class="rounded-lg bg-warning-soft px-3 py-1 text-xs font-bold text-warning">Mei</span>
+        </div>
+        <div class="mt-5 grid grid-cols-3 gap-3">
+          <div class="rounded-lg border border-line p-3">
+            <p class="text-2xl font-bold">18</p>
+            <p class="mt-1 text-xs font-semibold text-muted">Hadir</p>
+          </div>
+          <div class="rounded-lg border border-line p-3">
+            <p class="text-2xl font-bold">2</p>
+            <p class="mt-1 text-xs font-semibold text-muted">Terlambat</p>
+          </div>
+          <div class="rounded-lg border border-line p-3">
+            <p class="text-2xl font-bold">4j</p>
+            <p class="mt-1 text-xs font-semibold text-muted">Lembur</p>
+          </div>
+        </div>
+        <div class="mt-5 space-y-3">
+          <div>
+            <div class="mb-1 flex justify-between text-sm">
+              <span class="font-semibold text-muted">Konsistensi</span>
+              <span class="font-bold">92%</span>
+            </div>
+            <div class="h-2 overflow-hidden rounded-full bg-slate-200">
+              <div class="h-full w-[92%] rounded-full bg-success"></div>
+            </div>
+          </div>
+          <div>
+            <div class="mb-1 flex justify-between text-sm">
+              <span class="font-semibold text-muted">Ketepatan waktu</span>
+              <span class="font-bold">86%</span>
+            </div>
+            <div class="h-2 overflow-hidden rounded-full bg-slate-200">
+              <div class="h-full w-[86%] rounded-full bg-primary"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-xl border border-line bg-white p-5 shadow-soft">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold">Aktivitas Terakhir</h2>
+          <a href="report.html" class="text-sm font-bold text-primary">Lihat</a>
+        </div>
+        <div class="mt-4 space-y-3">
+          <div class="flex items-center gap-3 rounded-lg bg-slate-50 p-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-success-soft text-success">
+              <span class="material-symbols-outlined text-[20px]">check_circle</span>
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-bold">Absen keluar berhasil</p>
+              <p class="text-xs font-medium text-muted">Jumat, 8 Mei 2026 - 17:09 WIB</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 rounded-lg bg-slate-50 p-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-warning-soft text-warning">
+              <span class="material-symbols-outlined text-[20px]">schedule</span>
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-bold">Masuk terlambat 12 menit</p>
+              <p class="text-xs font-medium text-muted">Kamis, 7 Mei 2026 - 09:12 WIB</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <nav class="fixed bottom-0 left-0 z-50 w-full border-t border-line bg-white/92 px-4 py-2 shadow-[0_-12px_30px_rgba(17,24,39,0.08)] backdrop-blur-xl">
+    <div class="mx-auto grid max-w-md grid-cols-3 gap-2 pb-[env(safe-area-inset-bottom)]">
+      <a class="flex flex-col items-center justify-center rounded-xl bg-primary-soft px-3 py-2 text-primary" href="dashboard.html" aria-current="page">
+        <span class="material-symbols-outlined material-symbols-filled text-[23px]">dashboard</span>
+        <span class="mt-1 text-xs font-bold">Dashboard</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-muted transition hover:bg-slate-50 hover:text-primary" href="report.html">
+        <span class="material-symbols-outlined text-[23px]">calendar_month</span>
+        <span class="mt-1 text-xs font-bold">History</span>
+      </a>
+      <a class="flex flex-col items-center justify-center rounded-xl px-3 py-2 text-muted transition hover:bg-slate-50 hover:text-primary" href="profile.html">
+        <span class="material-symbols-outlined text-[23px]">person</span>
+        <span class="mt-1 text-xs font-bold">Profile</span>
+      </a>
+    </div>
+  </nav>
+</body>
+</html>
