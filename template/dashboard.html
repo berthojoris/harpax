@@ -2,7 +2,7 @@
 
 <html lang="id"><head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>WorkForce - Dashboard</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -104,7 +104,8 @@
         }
     </script>
 <style>
-        body { -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 <style>
     body {
@@ -112,16 +113,17 @@
     }
   </style>
   </head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<body class="bg-background text-on-background min-h-screen pb-[100px] antialiased">
 <!-- TopAppBar -->
-<header class="bg-surface text-primary sticky top-0 z-40 shadow-sm flex justify-between items-center w-full px-container-margin py-sm">
-<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container flex-shrink-0 border border-outline-variant/30">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a young man with short dark hair, wearing a casual light blue button-down shirt. The background is softly blurred out, suggesting an outdoor setting with natural daylight. The lighting is bright and modern, creating a clean and approachable corporate aesthetic suitable for a profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDao740B-XdJqDCUFmQ5B-ccnRVdoT32FRrCRuVM57ybxLGJ_DxbbTcmmJMH9mXR2smjxij48B2QmkAksR1pDn8EhyYp671Mfn0zR32mgg7P9unvP4OPygjEEhGCyBOKSBBVaXqr56hSXtJTza2UED8kWWLkSSv3BcgigCLSwHvwe6lhh6spmjCTQdq5OGcqoYYsg2PfjeaS9Pq1Pb49w6zUlgV-JDjjGdwvIXXnrUhDuRaLV8jrbWlgZD4QXffZfse0Dpw5vNPUdoz"/>
+<header class="bg-surface docked full-width top-0 border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-container-margin py-sm sticky z-40">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young man with short dark hair, wearing a casual light blue button-down shirt. The background is softly blurred out, suggesting an outdoor setting with natural daylight. The lighting is bright and modern, creating a clean and approachable corporate aesthetic suitable for a profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDao740B-XdJqDCUFmQ5B-ccnRVdoT32FRrCRuVM57ybxLGJ_DxbbTcmmJMH9mXR2smjxij48B2QmkAksR1pDn8EhyYp671Mfn0zR32mgg7P9unvP4OPygjEEhGCyBOKSBBVaXqr56hSXtJTza2UED8kWWLkSSv3BcgigCLSwHvwe6lhh6spmjCTQdq5OGcqoYYsg2PfjeaS9Pq1Pb49w6zUlgV-JDjjGdwvIXXnrUhDuRaLV8jrbWlgZD4QXffZfse0Dpw5vNPUdoz"/>
 </div>
-<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">WorkForce</h1>
-<button aria-label="Notifications" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors relative">
-<span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full"></span>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">WorkForce</h1>
+</div>
+<button class="flex items-center justify-center p-sm rounded-full text-primary hover:bg-surface-container-high transition-colors opacity-80 hover:opacity-100 duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
 </button>
 </header>
 <!-- Main Content Canvas -->
