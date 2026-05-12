@@ -134,6 +134,15 @@
       transform: translateY(-1px);
     }
 
+    @keyframes slide-in-down {
+      from { transform: translateY(-120%) scale(0.95); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    @keyframes slide-out-up {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-120%) scale(0.95); opacity: 0; }
+    }
+
     .timeline-line {
       position: absolute;
       left: 18px;
@@ -145,6 +154,24 @@
   </style>
 </head>
 <body class="bg-canvas text-ink antialiased">
+    <!-- iOS Notification -->
+    <div id="iosNotification" class="fixed left-0 right-0 top-4 z-[60] flex justify-center px-4 pointer-events-none">
+      <div id="iosNotificationInner" class="pointer-events-auto relative flex w-full max-w-sm items-start gap-3 rounded-2xl border border-white/50 bg-white/80 px-4 py-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] backdrop-blur-xl transition-all duration-500 ease-out translate-y-[-150%] opacity-0">
+        <div id="notifIcon" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
+          <span class="material-symbols-outlined material-symbols-filled text-[22px]">check_circle</span>
+        </div>
+        <div class="min-w-0 flex-1 pt-0.5">
+          <p id="notifTitle" class="text-sm font-bold text-ink">Berhasil</p>
+          <p id="notifMessage" class="mt-0.5 text-xs font-medium text-ink-tertiary leading-relaxed">Absen masuk berhasil tercatat.</p>
+        </div>
+        <button id="notifClose" class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-ink-muted transition hover:bg-black/5 mt-0.5">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+        <div class="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-black/5 overflow-hidden">
+          <div id="notifProgress" class="h-full rounded-full bg-success w-full origin-left"></div>
+        </div>
+      </div>
+    </div>
   <!-- Header -->
   <header class="glass-header sticky top-0 z-40 border-b border-white/70">
     <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
@@ -231,7 +258,7 @@
           </div>
         </div>
 
-        <button class="btn-lift mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-white to-slate-100 px-5 py-4 text-base font-bold text-primary shadow-lg shadow-primary-900/20 transition active:scale-[0.98]">
+        <button id="btnAbsenMasuk" class="btn-lift mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-white to-slate-100 px-5 py-4 text-base font-bold text-primary shadow-lg shadow-primary-900/20 transition active:scale-[0.98]">
           <span class="material-symbols-outlined material-symbols-filled text-[28px]">fingerprint</span>
           Absen Masuk Sekarang
         </button>
@@ -367,5 +394,93 @@
       </a>
     </div>
   </nav>
+  <script>
+    (function() {
+      const notification = document.getElementById('iosNotificationInner');
+      const notifTitle = document.getElementById('notifTitle');
+      const notifMessage = document.getElementById('notifMessage');
+      const notifIcon = document.getElementById('notifIcon');
+      const notifProgress = document.getElementById('notifProgress');
+      const btnAbsen = document.getElementById('btnAbsenMasuk');
+      const notifClose = document.getElementById('notifClose');
+      let hideTimeout;
+
+      const configs = {
+        success: {
+          icon: 'check_circle',
+          colorClass: 'bg-success/15 text-success',
+          progressColor: 'bg-success',
+          title: 'Berhasil',
+          message: 'Absen masuk berhasil tercatat pada pukul 08:42 WIB.'
+        },
+        info: {
+          icon: 'info',
+          colorClass: 'bg-primary/15 text-primary',
+          progressColor: 'bg-primary',
+          title: 'Info',
+          message: 'Anda sudah berada dalam radius kantor. GPS akurat.'
+        },
+        error: {
+          icon: 'error',
+          colorClass: 'bg-danger/15 text-danger',
+          progressColor: 'bg-danger',
+          title: 'Gagal',
+          message: 'Gagal mencatat absen. Coba lagi atau hubungi HRD.'
+        }
+      };
+
+      let clickCount = 0;
+
+      function showNotification(type) {
+        const cfg = configs[type];
+        if (!cfg) return;
+
+        clearTimeout(hideTimeout);
+        notification.style.transition = 'none';
+
+        notifTitle.textContent = cfg.title;
+        notifMessage.textContent = cfg.message;
+        notifIcon.className = 'flex h-10 w-10 shrink-0 items-center justify-center rounded-full ' + cfg.colorClass;
+        notifIcon.querySelector('span').textContent = cfg.icon;
+        notifProgress.className = 'h-full rounded-full w-full origin-left ' + cfg.progressColor;
+
+        notification.style.transform = 'translateY(-150%)';
+        notification.style.opacity = '0';
+        void notification.offsetWidth;
+
+        notification.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        notification.style.transform = 'translateY(0)';
+        notification.style.opacity = '1';
+
+        notifProgress.style.transition = 'none';
+        notifProgress.style.transform = 'scaleX(1)';
+        void notifProgress.offsetWidth;
+        notifProgress.style.transition = 'transform 4s linear';
+        notifProgress.style.transform = 'scaleX(0)';
+
+        hideTimeout = setTimeout(() => hideNotification(), 4000);
+      }
+
+      function hideNotification() {
+        clearTimeout(hideTimeout);
+        notification.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        notification.style.transform = 'translateY(-150%)';
+        notification.style.opacity = '0';
+      }
+
+      if (btnAbsen) {
+        btnAbsen.addEventListener('click', function() {
+          clickCount++;
+          if (clickCount % 3 === 1) showNotification('success');
+          else if (clickCount % 3 === 2) showNotification('info');
+          else showNotification('error');
+        });
+      }
+
+      if (notifClose) {
+        notifClose.addEventListener('click', hideNotification);
+      }
+    })();
+  </script>
 </body>
 </html>
