@@ -151,9 +151,30 @@
       <a class="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-ink-tertiary transition hover:border-primary hover:text-primary" href="dashboard_kimi.html" aria-label="Kembali">
         <span class="material-symbols-outlined">arrow_back</span>
       </a>
-      <div class="text-center">
-        <p class="text-xs font-bold uppercase tracking-wider text-ink-muted">WorkForce</p>
-        <h1 class="text-base font-bold text-ink">Absen Masuk</h1>
+      <div class="flex items-center gap-2">
+        <!-- WorkForce Logo -->
+        <svg class="h-7 w-7" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="WorkForce Logo">
+          <defs>
+            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3B82F6" />
+              <stop offset="100%" stop-color="#1D4ED8" />
+            </linearGradient>
+            <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#34D399" />
+              <stop offset="100%" stop-color="#10B981" />
+            </linearGradient>
+          </defs>
+          <path d="M24 4L8 12V22C8 33.05 15.24 42.74 24 46C32.76 42.74 40 33.05 40 22V12L24 4Z" fill="url(#logoGradient)" opacity="0.1" />
+          <path d="M24 4L8 12V22C8 33.05 15.24 42.74 24 46C32.76 42.74 40 33.05 40 22V12L24 4Z" stroke="url(#logoGradient)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="24" cy="24" r="10" fill="white" stroke="url(#logoGradient)" stroke-width="2" />
+          <line x1="24" y1="24" x2="24" y2="17" stroke="#1D4ED8" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="24" y1="24" x2="29" y2="26" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" />
+          <circle cx="24" cy="24" r="1.5" fill="#1D4ED8" />
+          <path d="M34 14L36 16L40 11" stroke="url(#accentGradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        </svg>
+        <div class="text-left">
+          <p class="text-sm font-bold text-ink">Absen Masuk</p>
+        </div>
       </div>
       <details class="relative">
         <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-border bg-white text-ink-tertiary transition hover:border-primary hover:text-primary" aria-label="Buka menu akun">
@@ -223,10 +244,10 @@
       <!-- Map Card -->
       <div class="animate-fade-up delay-100 overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
         <div class="relative h-56 bg-slate-100 sm:h-64">
-          <img class="h-full w-full object-cover" alt="Peta area kantor Sudirman" src="https://images.unsplash.com/photo-1569336415962-a4bd9f69c07a?auto=format&fit=crop&w=1200&q=80" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary-900/30 via-primary-900/5 to-transparent"></div>
+          <iframe class="z-0 h-full w-full border-0" src="https://www.openstreetmap.org/export/embed.html?bbox=106.8200%2C-6.2200%2C106.8700%2C-6.1900&layer=mapnik&marker=-6.2088%2C106.8456" title=""></iframe>
+          <div class="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-primary-900/30 via-primary-900/5 to-transparent"></div>
           <!-- Pulsing location marker -->
-          <div class="absolute inset-0 flex items-center justify-center">
+          <div class="absolute inset-0 z-10 flex items-center justify-center">
             <div class="relative">
               <div class="absolute -inset-10 rounded-full border border-primary/20 ripple-ring"></div>
               <div class="absolute -inset-10 rounded-full border border-primary/15 ripple-ring-delay"></div>
@@ -238,12 +259,12 @@
             </div>
           </div>
           <!-- Location info badge -->
-          <div class="absolute left-4 top-4 rounded-xl bg-white/92 px-3 py-2 shadow-card backdrop-blur">
-            <p class="text-xs font-bold text-success flex items-center gap-1">
+          <div class="absolute left-4 top-4 z-10 rounded-xl border border-white/60 bg-white/95 px-3.5 py-2.5 shadow-lg backdrop-blur-md">
+            <p class="flex items-center gap-1 text-xs font-bold text-success">
               <span class="material-symbols-outlined material-symbols-filled text-[14px]">verified</span>
               Dalam Radius Kantor
             </p>
-            <p class="text-xs font-medium text-ink-tertiary">Akurasi GPS 12m</p>
+            <p class="mt-0.5 text-xs font-medium text-ink-tertiary">Akurasi GPS 12m</p>
           </div>
         </div>
         <div class="p-5">

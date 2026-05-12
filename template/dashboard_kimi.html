@@ -190,11 +190,28 @@
   <header class="glass-header sticky top-0 z-40 border-b border-border/60">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
       <div class="flex items-center gap-3">
-        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-600 text-white shadow-lift">
-          <span class="material-symbols-outlined material-symbols-filled">work_history</span>
-        </div>
+        <!-- WorkForce Logo -->
+        <svg class="h-10 w-10" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="WorkForce Logo">
+          <defs>
+            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3B82F6" />
+              <stop offset="100%" stop-color="#1D4ED8" />
+            </linearGradient>
+            <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#34D399" />
+              <stop offset="100%" stop-color="#10B981" />
+            </linearGradient>
+          </defs>
+          <path d="M24 4L8 12V22C8 33.05 15.24 42.74 24 46C32.76 42.74 40 33.05 40 22V12L24 4Z" fill="url(#logoGradient)" opacity="0.1" />
+          <path d="M24 4L8 12V22C8 33.05 15.24 42.74 24 46C32.76 42.74 40 33.05 40 22V12L24 4Z" stroke="url(#logoGradient)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="24" cy="24" r="10" fill="white" stroke="url(#logoGradient)" stroke-width="2" />
+          <line x1="24" y1="24" x2="24" y2="17" stroke="#1D4ED8" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="24" y1="24" x2="29" y2="26" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" />
+          <circle cx="24" cy="24" r="1.5" fill="#1D4ED8" />
+          <path d="M34 14L36 16L40 11" stroke="url(#accentGradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        </svg>
         <div>
-          <p class="text-lg font-extrabold leading-5 text-primary">WorkForce</p>
+          <p class="text-lg font-extrabold leading-5 text-primary">Work<span class="text-success">Force</span></p>
           <p class="text-xs font-semibold text-ink-tertiary">Mobile Attendance</p>
         </div>
       </div>
