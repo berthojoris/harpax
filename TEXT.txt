@@ -1,0 +1,5 @@
+saya ingin kamu analisa kebutuhan project ini di file @workforce_attendance_prd.md dengan selalu mematuhi aturan yg berlaku pada @AGENTS.md di project ini. buatkan aplikasi
+   dengan nama "WorkForce" dengan tech "Nextjs" dan database sqlite. Analisa semua kebutuhan yg ada pada PRD @workforce_attendance_prd.md dan buatkan semua tabel pada database
+   untuk kebutuhan ini. UI sudah saya sediakan. Untuk login UI gunakan @template/login_kimi.html , untuk dashboard UI @template/dashboard_kimi.html , untuk history dan report
+   gunakan @template/report_kimi.html , untuk profile UI dengan contoh @template/profile_kimi.html , untuk page presence gunakan UI @template/absen_kimi.html . Tambahkan juga
+   notifikasi ketika berhasil submit based on UI yg ada pada project ini
