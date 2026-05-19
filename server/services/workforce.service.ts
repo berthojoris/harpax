@@ -535,9 +535,6 @@ export function recordCheckIn(userId: string, payload: LocationPayload, userAgen
   if (existing?.checkInAt) throw new ServiceError("You have already checked in today.", 409);
 
   const distanceMeters = calculateDistanceMeters(payload, office);
-  if (distanceMeters > office.allowedRadiusMeters) {
-    throw new ServiceError("You are outside the allowed office radius.", 403);
-  }
 
   const status = classifyCheckIn(now, shift);
   const database = getDatabase();
@@ -633,9 +630,6 @@ export function recordCheckOut(userId: string, payload: LocationPayload, userAge
   if (existing.checkOutAt) throw new ServiceError("You have already checked out today.", 409);
 
   const distanceMeters = calculateDistanceMeters(payload, office);
-  if (distanceMeters > office.allowedRadiusMeters) {
-    throw new ServiceError("You are outside the allowed office radius.", 403);
-  }
 
   const workDurationMinutes = calculateWorkDurationMinutes(existing.checkInAt, nowIso);
   const overtimeMinutes = calculateOvertimeMinutes(now, shift);

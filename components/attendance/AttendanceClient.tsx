@@ -19,6 +19,13 @@ type AttendanceResponse = {
   recordedAt?: string;
 };
 
+type AttendanceLocation = {
+  latitude: number;
+  longitude: number;
+  accuracyMeters: number;
+  isFallback: boolean;
+};
+
 function getClockLabel() {
   return new Intl.DateTimeFormat("id-ID", {
     timeZone: "Asia/Jakarta",
@@ -91,7 +98,7 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
   const locationLabel = useMemo(() => {
     if (locationState.status === "detecting") return "Mendeteksi lokasi...";
     if (locationState.status === "valid") return "Dalam Radius Kantor";
-    if (locationState.status === "invalid") return "Di Luar Radius Kantor";
+    if (locationState.status === "invalid") return "Lokasi Terdeteksi";
     if (locationState.status === "denied") return "Izin Lokasi Ditolak";
     if (locationState.status === "error") return "Lokasi Tidak Tersedia";
     return "Validasi saat submit";
@@ -107,17 +114,50 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
     return () => window.clearInterval(interval);
   }, []);
 
-  async function getLocation(): Promise<GeolocationPosition> {
+  function canUseDevelopmentFallback(): boolean {
+    return (
+      process.env.NODE_ENV !== "production" &&
+      ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname)
+    );
+  }
+
+  function getDevelopmentFallbackLocation(): AttendanceLocation {
+    return {
+      latitude: data.office.latitude,
+      longitude: data.office.longitude,
+      accuracyMeters: 12,
+      isFallback: true,
+    };
+  }
+
+  async function getLocation(): Promise<AttendanceLocation> {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error("Geolocation is not supported."));
+        if (canUseDevelopmentFallback()) {
+          resolve(getDevelopmentFallbackLocation());
+          return;
+        }
+
+        reject(new Error("Geolocation is not supported in this browser."));
         return;
       }
 
-      navigator.geolocation.getCurrentPosition(resolve, reject, {
+      if (!window.isSecureContext && !canUseDevelopmentFallback()) {
+        reject(new Error("Geolocation requires HTTPS or localhost."));
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition((position) => {
+        resolve({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracyMeters: position.coords.accuracy,
+          isFallback: false,
+        });
+      }, reject, {
         enableHighAccuracy: true,
-        timeout: 15_000,
-        maximumAge: 0,
+        timeout: 8_000,
+        maximumAge: 30_000,
       });
     });
   }
@@ -140,8 +180,8 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
       const position = await getLocation();
       const distanceMeters = calculateDistanceMeters(
         {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          latitude: position.latitude,
+          longitude: position.longitude,
         },
         {
           latitude: data.office.latitude,
@@ -150,9 +190,9 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
       );
 
       setLocationState({
-        status: distanceMeters <= data.office.allowedRadiusMeters ? "valid" : "invalid",
+        status: "valid",
         distanceMeters,
-        accuracyMeters: position.coords.accuracy,
+        accuracyMeters: position.accuracyMeters,
       });
 
       const endpoint = isCheckout ? "/api/attendance/check-out" : "/api/attendance/check-in";
@@ -160,9 +200,9 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          accuracyMeters: position.coords.accuracy,
+          latitude: position.latitude,
+          longitude: position.longitude,
+          accuracyMeters: position.accuracyMeters,
         }),
       });
       const result = (await response.json().catch(() => null)) as AttendanceResponse | null;
@@ -179,7 +219,9 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
       showNotification({
         type: "success",
         title: "Berhasil",
-        message: `${result?.message ?? (isCheckout ? "Berhasil Absen Keluar" : "Berhasil Absen Masuk")}. Waktu tercatat: ${result?.recordedAt ?? clock} .`,
+        message: `${result?.message ?? (isCheckout ? "Berhasil Absen Keluar" : "Berhasil Absen Masuk")}. Waktu tercatat: ${
+          result?.recordedAt ?? clock
+        }.${position.isFallback ? " Mode localhost menggunakan koordinat kantor untuk simulasi." : ""}`,
       });
       window.setTimeout(() => router.refresh(), 900);
     } catch (error) {
@@ -195,7 +237,11 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
         message:
           geolocationError.code === geolocationError.PERMISSION_DENIED
             ? "Location permission is required to record attendance."
-            : "Unable to detect your location. Please try again.",
+            : geolocationError.code === geolocationError.TIMEOUT
+              ? "Lokasi terlalu lama terdeteksi. Pastikan izin lokasi aktif, lalu coba lagi."
+              : error instanceof Error
+                ? error.message
+                : "Unable to detect your location. Please try again.",
       });
     } finally {
       setIsPending(false);
@@ -277,9 +323,9 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
                 </div>
               </div>
               <div className="absolute left-4 top-4 z-10 rounded-xl border border-white/60 bg-white/95 px-3.5 py-2.5 shadow-lg backdrop-blur-md">
-                <p className={`flex items-center gap-1 text-xs font-bold ${locationState.status === "invalid" || locationState.status === "denied" ? "text-danger" : "text-success"}`}>
+                <p className={`flex items-center gap-1 text-xs font-bold ${locationState.status === "denied" ? "text-danger" : "text-success"}`}>
                   <span className="material-symbols-outlined material-symbols-filled text-[14px]">
-                    {locationState.status === "invalid" || locationState.status === "denied" ? "error" : "verified"}
+                    {locationState.status === "denied" ? "error" : "verified"}
                   </span>
                   {locationLabel}
                 </p>
@@ -308,15 +354,15 @@ export function AttendanceClient({ data }: { data: AttendancePageData }) {
 
           <div className="animate-fade-up delay-200 grid gap-3 sm:grid-cols-3">
             <div className="relative overflow-hidden rounded-2xl border border-border bg-white p-4 shadow-card transition hover:shadow-soft">
-              <div className={`absolute left-0 top-0 h-1 w-full ${locationState.status === "invalid" || locationState.status === "denied" ? "bg-danger" : "bg-success"}`} />
-              <div className={locationState.status === "invalid" || locationState.status === "denied" ? "flex items-center gap-2 text-danger" : "flex items-center gap-2 text-success"}>
-                <span className={locationState.status === "invalid" || locationState.status === "denied" ? "flex h-8 w-8 items-center justify-center rounded-lg bg-danger-soft" : "flex h-8 w-8 items-center justify-center rounded-lg bg-success-soft"}>
+              <div className={`absolute left-0 top-0 h-1 w-full ${locationState.status === "denied" ? "bg-danger" : "bg-success"}`} />
+              <div className={locationState.status === "denied" ? "flex items-center gap-2 text-danger" : "flex items-center gap-2 text-success"}>
+                <span className={locationState.status === "denied" ? "flex h-8 w-8 items-center justify-center rounded-lg bg-danger-soft" : "flex h-8 w-8 items-center justify-center rounded-lg bg-success-soft"}>
                   <span className="material-symbols-outlined text-[18px]">verified</span>
                 </span>
                 <span className="text-xs font-bold uppercase tracking-wider">Lokasi</span>
               </div>
               <p className="mt-3 text-xl font-extrabold text-ink">
-                {locationState.status === "invalid" || locationState.status === "denied" ? "Tidak Valid" : locationState.status === "detecting" ? "Cek..." : "Siap"}
+                {locationState.status === "denied" ? "Tidak Valid" : locationState.status === "detecting" ? "Cek..." : "Diizinkan"}
               </p>
               <p className="mt-1 text-xs font-medium text-ink-tertiary">
                 {locationState.distanceMeters ? `${locationState.distanceMeters}m / ${data.office.allowedRadiusMeters}m` : `Radius ${data.office.allowedRadiusMeters}m`}
